@@ -1,11 +1,7 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/login">Login</router-link> |
-    <router-link to="/register">Register</router-link> |
-    <router-link to="/app/24/">App</router-link>
-  </nav>
+
   <router-view />
+
 </template>
 
 <script>
@@ -39,6 +35,17 @@ export default {
 <style lang="scss">
 @import url('https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@300;400;600&display=swap');
 
+body {
+  margin: 0;
+}
+
+#app {
+  position: relative;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
 * {
   box-sizing: border-box;
   font-family: 'Lexend Deca', Calibri, sans-serif;
@@ -46,7 +53,7 @@ export default {
 }
 
 body {
-  font-size: 14px;
+  font-size: 16px;
 
   h1,
   h2,
@@ -57,5 +64,9 @@ body {
     font-weight: 400;
   }
 
+}
+
+.header {
+  background-color: white;
 }
 </style>

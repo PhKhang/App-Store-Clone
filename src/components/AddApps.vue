@@ -16,6 +16,7 @@ export default {
             size: '',
             down_url: '',
             screen: [],
+            screen_raw: ''
         }
     },
     methods: {
@@ -76,6 +77,9 @@ export default {
         },
 
         async addApp() {
+            var text2array = this.screen_raw.split('\n');
+            this.screen = text2array;
+
             let { data: Apps, error } = await supabase
                 .from('Apps')
                 .insert([
@@ -87,13 +91,15 @@ export default {
                         author: this.author,
                         des: this.des,
                         size: this.size,
-                        down_url: this.down_url
+                        down_url: this.down_url,
+                        screens: this.screen,
                     }
                 ])
 
+
             console.log(
-                this.name,
-                this.icon_url,
+                this.screen,
+                text2array
             )
 
             this.load()
@@ -108,14 +114,11 @@ export default {
     },
 
     created() {
-        this.match(this.$route.params.id);
-        this.updateReviews(this.$route.params.id)
     },
 }
 </script>
 
 <template>
-
 
     <div class="add">
 
@@ -126,6 +129,8 @@ export default {
             <input v-model="rating" placeholder="App rating, I.E: 4.7, 3.8">
             <input v-model="author" placeholder="Author">
             <textarea v-model="des" type="text" placeholder="App description"></textarea>
+            <textarea v-model="screen_raw" type="text" :placeholder="'Screenshots URLs: \nyoutube.com \nm.me'"
+                :rows="3"></textarea>
             <input v-model="size" placeholder="Size, I.E: 49.56, 458.45">
             <form action="" @submit.prevent="addApp()">
                 <input v-model="down_url" placeholder="Download URL">
@@ -152,19 +157,22 @@ export default {
 
 <style lang="scss" scoped>
 .add {
-    display: flex;
-    flex-wrap: wrap;
+    width: 100%;
 
     .input {
+        float: left;
         padding-left: 100px;
         padding-right: 100px;
         width: 50%;
-        display: grid;
-        flex-wrap: wrap;
 
+        >* {
+            display: block;
+            width: 100%;
+        }
     }
 
     .output {
+        float: right;
         width: 50%;
 
         span {

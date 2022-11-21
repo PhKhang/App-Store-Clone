@@ -3,12 +3,14 @@
 <script>
 import { supabase } from '../supabase'
 import AddApp from '@/components/AddApps.vue'
+import Nav from '@/components/Nav.vue'
 
 
 export default {
   name: 'home',
   components: {
-    AddApp
+    AddApp,
+    Nav
   },
   data() {
     return {
@@ -99,13 +101,14 @@ export default {
 </script>
 
 <template>
+  <Nav />
 
   <div class="app-con">
     <div class="app" v-for="(app, index) in data">
       <router-link :to="'/app/' + app.id">
         <img :src="app.icon_url" alt="" class="app-icon" referrerpolicy="no-referrer">
       </router-link>
-      <h1>{{ app.name }}</h1>
+      <h2>{{ app.name }}</h2>
     </div>
   </div>
 
@@ -128,7 +131,7 @@ export default {
   flex-wrap: wrap;
   justify-content: center;
   padding: 0;
-  margin: 50px;
+  margin: 20px;
 
   .app-icon {
     width: 160px;
