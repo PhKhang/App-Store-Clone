@@ -114,7 +114,7 @@ export default {
 
 
 
-  <AddApp></AddApp>
+  <AddApp @load="load"></AddApp>
 </template>
 
 <style lang="scss">

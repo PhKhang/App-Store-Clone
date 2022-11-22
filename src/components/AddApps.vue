@@ -19,6 +19,7 @@ export default {
             screen_raw: ''
         }
     },
+    emits: ['load'],
     methods: {
         async load() {
             let { data: Apps, error } = await supabase
@@ -102,7 +103,7 @@ export default {
                 text2array
             )
 
-            this.load()
+            this.$emit('load')
         },
 
         onInput(e) {
