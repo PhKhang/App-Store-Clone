@@ -1,12 +1,11 @@
 <template>
     <nav>
-        <div class="logo">
+        <router-link to="/" class="logo">
             <i></i>
             App Store
-        </div>
+        </router-link>
 
         <div class="links">
-            <router-link to="/">Home</router-link>
             <router-link to="/login">Login</router-link>
             <router-link to="/register">Register</router-link>
         </div>
@@ -20,6 +19,10 @@ export default {
 </script>
 
 <style scoped lang="scss">
+* {
+    font-weight: 700;
+}
+
 nav {
     box-sizing: border-box;
 
@@ -31,12 +34,16 @@ nav {
     padding: 6px;
     margin: 0;
 
-    border: solid;
 
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 20px;
+
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
 
     .links {
         display: flex;

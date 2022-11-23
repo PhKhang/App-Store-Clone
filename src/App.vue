@@ -33,7 +33,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import url('https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@300;400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@300;700&display=swap');
 
 body {
   margin: 0;
@@ -44,6 +44,8 @@ body {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+
+  overflow-x: hidden;
 }
 
 * {
@@ -61,7 +63,7 @@ body {
   h4,
   h5,
   h6 {
-    font-weight: 400;
+    font-weight: 700;
   }
 
 }
