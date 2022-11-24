@@ -221,7 +221,15 @@ export default {
         </form>
         <p>Name: {{ text }}</p>
         <p>Review: {{ comment_con }}</p>
+
+        <div class="comment-cont">
+            <div class="comment" v-for="(Review, index) in comments">
+                <h3>{{ Review.name }}</h3>
+                <p>{{ Review.content }}</p>
+            </div>
+        </div>
     </div>
+
 
 
 
