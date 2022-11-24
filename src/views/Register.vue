@@ -1,5 +1,7 @@
 <template>
     <div class="max-w-screen-sm mx-auto px-4 py-10">
+        <Nav />
+
         <!-- Error Handling -->
         <div v-if="errorMsg" class="mb-10 p-4 rounded-md bg-light-grey shadow-lg">
             <p class="text-red-500">{{ errorMsg }}</p>
@@ -44,9 +46,13 @@
 import { ref } from "vue";
 import { supabase } from "../supabase";
 import { useRouter } from "vue-router";
+import Nav from '@/components/Nav.vue'
 
 export default {
     name: "register",
+    components: {
+        Nav
+    },
     setup() {
         // Create data / vars
         const router = useRouter();
@@ -62,6 +68,7 @@ export default {
                     const { error } = await supabase.auth.signUp({
                         email: email.value,
                         password: password.value,
+
                     });
                     if (error) throw error;
                     router.push({ name: "Login" });

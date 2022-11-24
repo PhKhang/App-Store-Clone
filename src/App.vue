@@ -52,6 +52,7 @@ body {
   box-sizing: border-box;
   font-family: 'Lexend Deca', Calibri, sans-serif;
   font-weight: 300;
+  text-align: justify;
 }
 
 body {
@@ -64,6 +65,7 @@ body {
   h5,
   h6 {
     font-weight: 700;
+    text-align: left;
   }
 
 }

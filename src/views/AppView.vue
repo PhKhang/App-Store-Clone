@@ -223,7 +223,7 @@ export default {
         <p>Review: {{ comment_con }}</p>
 
         <div class="comment-cont">
-            <div class="comment" v-for="(Review, index) in comments">
+            <div class="comment" v-for="(Review, index) in comments" :key="index">
                 <h3>{{ Review.name }}</h3>
                 <p>{{ Review.content }}</p>
             </div>
@@ -259,8 +259,8 @@ export default {
 
 .header {
     width: 100%;
-    height: 100px;
-    min-height: 773px;
+    height: 700px;
+    max-height: 773px;
 
     background: linear-gradient(to right, v-bind(darkvi) 28.45%, rgba(122, 122, 122, 0.185) 67.48%, v-bind(darkvi) 99.95%);
     position: relative;
@@ -269,6 +269,7 @@ export default {
     transition: background .4s ease;
 
     overflow: hidden;
+    transition: all .2s ease;
 
     .back {
         position: absolute;
@@ -281,6 +282,8 @@ export default {
             width: 100%;
             height: 100%;
             object-fit: cover;
+
+            transition: all .2s ease;
         }
     }
 
@@ -329,7 +332,31 @@ export default {
             }
         }
     }
+
 }
+
+@media screen and (max-width: 820px) {
+    .header {
+        height: 80vh;
+        background: linear-gradient(0deg, v-bind(darkvi) 28.45%, rgba(122, 122, 122, 0.185) 67.48%);
+
+        .back {
+            width: 100%;
+        }
+
+        .app-icon {
+            width: 180px;
+            border-radius: 28%;
+        }
+
+        .header-text {
+            h1 {
+                font-size: 40px;
+            }
+        }
+    }
+}
+
 
 .screen-con {
     margin-top: 100px;

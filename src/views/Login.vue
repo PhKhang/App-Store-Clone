@@ -2,9 +2,13 @@
 import { ref } from "vue";
 import { supabase } from '../supabase';
 import { useRouter } from "vue-router";
+import Nav from '@/components/Nav.vue'
 
 export default {
     name: "login",
+    components: {
+        Nav
+    },
     setup() {
         // Create data / vars
         const router = useRouter();
@@ -36,7 +40,9 @@ export default {
 
 <template>
     <div class="max-w-screen-sm mx-auto px-4 py-10">
-        <h1>hello</h1>
+        <Nav />
+
+        <h1>Welcome back</h1>
         <!-- Error Handling -->
         <div v-if="errorMsg" class="mb-10 p-4 rounded-md bg-light-grey shadow-lg">
             <p class="text-red-500">{{ errorMsg }}</p>
