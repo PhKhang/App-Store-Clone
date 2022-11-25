@@ -16,7 +16,8 @@ export default {
             size: '',
             down_url: '',
             screen: [],
-            screen_raw: ''
+            screen_raw: '',
+            screen_pre: []
         }
     },
     emits: ['load'],
@@ -111,6 +112,12 @@ export default {
         },
         onInputCon(e) {
             this.comment_con = e.target.value
+        },
+
+        type() {
+            this.screen_pre = this.screen_raw.split('\n');
+            console.log(this.screen_pre)
+            console.log('Typing...')
         }
     },
 
@@ -130,8 +137,8 @@ export default {
             <input v-model="rating" placeholder="App rating, I.E: 4.7, 3.8">
             <input v-model="author" placeholder="Author">
             <textarea v-model="des" type="text" placeholder="App description"></textarea>
-            <textarea v-model="screen_raw" type="text" :placeholder="'Screenshots URLs: \nyoutube.com \nm.me'"
-                :rows="3"></textarea>
+            <textarea @input="type()" v-model="screen_raw" type="text"
+                :placeholder="'Screenshots URLs: \nyoutube.com \nm.me'" :rows="6"></textarea>
             <input v-model="size" placeholder="Size, I.E: 49.56, 458.45">
             <form action="" @submit.prevent="addApp()">
                 <input v-model="down_url" placeholder="Download URL">
@@ -147,6 +154,12 @@ export default {
             <p><span>Author:</span> {{ author }}</p>
             <p><span>Description:<br></span></p>
             <p style="white-space: pre-wrap">{{ des }}</p>
+            <p><span>Screenshots:<br></span></p>
+            <div class="screens">
+                <div class="screen" v-for="(img, index) in screen_pre" :key="index">
+                    <img :src="img" alt="" referrerpolicy="no-referrer">
+                </div>
+            </div>
             <p><span>Size:</span> {{ size }}<span>MB</span></p>
             <p><span>Download URL:</span> {{ down_url }}</p>
         </div>
@@ -177,7 +190,20 @@ export default {
         width: 50%;
 
         span {
-            font-weight: 400;
+            font-weight: 700;
+        }
+
+        .screens {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+
+            img {
+                max-width: 360px;
+                max-height: 300px;
+                object-fit: contain;
+                border-radius: 10px;
+            }
         }
     }
 

@@ -5,6 +5,7 @@ import { supabase } from '../supabase'
 import Nav from '@/components/Nav.vue'
 import Vibrant from 'node-vibrant'
 
+
 export default {
     name: 'app',
     components: {
@@ -79,6 +80,8 @@ export default {
 
             this.data = Apps
             console.log(Apps)
+
+            this.carousel()
         },
         async update() {
             const { data, error } = await supabase
@@ -167,14 +170,37 @@ export default {
             )
 
 
+        },
+
+        carousel() {
+            console.log("Carousel")
+            $(".screen-con").slick({
+                dots: true,
+                infinite: true,
+                speed: 700,
+                autoplay: true,
+                autoplaySpeed: 2000,
+                arrows: true,
+                slidesToShow: 2,
+                slidesToScroll: 1
+            });
         }
     },
 
     created() {
         this.match(this.$route.params.id);
         this.updateReviews(this.$route.params.id);
+
+
+
     },
     mounted() {
+        console.log("Carousel")
+        $(".screen-con").slick({
+            lazyLoad: 'ondemand',
+            slidesToShow: 1,
+            slidesToScroll: 1
+        });
     }
 }
 </script>
@@ -212,7 +238,7 @@ export default {
             </div>
         </div>
 
-        <h3>Description</h3>
+        <h3 @load="carousel()">Description</h3>
         <p class="des" style="white-space: pre-wrap">{{ app[0].des }}</p>
         <h3>Comment</h3>
         <input :value="text" @input="onInput" placeholder="Type here">
@@ -360,9 +386,15 @@ export default {
 
 .screen-con {
     margin-top: 100px;
+    width: 100%;
 
     display: flex;
     gap: 16px;
+    overflow-x: scroll;
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
 
     .screen {
         height: 330px;
@@ -371,11 +403,18 @@ export default {
     }
 }
 
+.screen-con::-webkit-scrollbar {
+    display: none;
+}
+
+
+
 .content {
     width: 100%;
     max-width: 1100px;
     margin: auto;
     padding: 10px;
+
 
     p {
         color: #63676C;
