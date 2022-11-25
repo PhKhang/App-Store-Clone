@@ -195,12 +195,7 @@ export default {
 
     },
     mounted() {
-        /* console.log("Carousel")
-        $(".screen-con").slick({
-            lazyLoad: 'ondemand',
-            slidesToShow: 1,
-            slidesToScroll: 1
-        }); */
+
     }
 }
 </script>
@@ -243,7 +238,7 @@ export default {
             </div>
         </div>
 
-        <h3 @load="">Description</h3>
+        <h3>Description</h3>
         <p class="des" style="white-space: pre-wrap">{{ app[0].des }}</p>
         <h3>Comment</h3>
         <input :value="text" @input="onInput" placeholder="Type here">
