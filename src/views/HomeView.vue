@@ -24,6 +24,8 @@ export default {
 
   methods: {
     async load() {
+      console.log(this.data, 'ihgihgih')
+
       let { data: Apps, error } = await supabase
         .from('Apps')
         .select('*')

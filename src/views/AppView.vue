@@ -195,12 +195,12 @@ export default {
 
     },
     mounted() {
-        console.log("Carousel")
+        /* console.log("Carousel")
         $(".screen-con").slick({
             lazyLoad: 'ondemand',
             slidesToShow: 1,
             slidesToScroll: 1
-        });
+        }); */
     }
 }
 </script>
@@ -210,8 +210,13 @@ export default {
 
 
     <div class="header">
-        <div class="back" v-for="(screen, index) in app[0].screens" :key="index">
+        <video class="back vid" v-if="app[0].header_url" autoplay loop>
+            <source :src="app[0].header_url" type="video/mp4">
+        </video>
+        <div v-else class="back" v-for="(screen, index) in app[0].screens" :key="index">
+
             <img :src="screen" referrerpolicy="no-referrer" v-if="index == 0">
+
         </div>
 
         <div class="header-text">
@@ -233,12 +238,12 @@ export default {
 
     <div class="content">
         <div class="screen-con">
-            <div v-for="(screen, index) in app[0].screens" :key="index">
+            <div class="screen-wrap" v-for="(screen, index) in app[0].screens" :key="index">
                 <img class="screen" :src="screen" referrerpolicy="no-referrer">
             </div>
         </div>
 
-        <h3 @load="carousel()">Description</h3>
+        <h3 @load="">Description</h3>
         <p class="des" style="white-space: pre-wrap">{{ app[0].des }}</p>
         <h3>Comment</h3>
         <input :value="text" @input="onInput" placeholder="Type here">
@@ -313,6 +318,11 @@ export default {
         }
     }
 
+    .vid {
+        height: 100%;
+        width: max-content;
+    }
+
     .header-text {
         width: 100%;
         max-width: 1300px;
@@ -370,6 +380,14 @@ export default {
             width: 100%;
         }
 
+        .vid {
+            height: 80%;
+            width: min-content;
+
+            left: 50%;
+            transform: translate(-50%);
+        }
+
         .app-icon {
             width: 180px;
             border-radius: 28%;
@@ -391,10 +409,11 @@ export default {
     display: flex;
     gap: 16px;
     overflow-x: scroll;
-    -ms-overflow-style: none;
-    /* IE and Edge */
-    scrollbar-width: none;
-    /* Firefox */
+
+
+    .screen-wrap {
+        width: fit-content;
+    }
 
     .screen {
         height: 330px;
@@ -403,10 +422,21 @@ export default {
     }
 }
 
-.screen-con::-webkit-scrollbar {
-    display: none;
+
+*::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
 }
 
+*::-webkit-scrollbar-track {
+    background: var(--scroll-bar-bg-color);
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: var(--scroll-bar-color);
+    border-radius: 20px;
+    border: 3px solid var(--scroll-bar-bg-color);
+}
 
 
 .content {
