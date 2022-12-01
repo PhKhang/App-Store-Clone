@@ -11,6 +11,9 @@ export default {
     components: {
         Nav
     },
+    props: {
+        appData: Object
+    },
     data() {
         return {
             page_title: 'Blog',

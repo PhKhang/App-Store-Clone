@@ -1,15 +1,14 @@
-<template>
-
-  <router-view />
-
-</template>
-
 <script>
 import { ref } from "vue";
 import { supabase } from './supabase';
 import store from "./store/index";
 export default {
   components: {
+  },
+  data() {
+    return {
+      appData: {}
+    }
   },
   setup() {
     // Create data / vars
@@ -29,8 +28,31 @@ export default {
     });
     return { appReady };
   },
+  methods: {
+    async load() {
+      // console.log(this.data, 'ihgihgih')
+
+      let { data: Apps, error } = await supabase
+        .from('Apps')
+        .select('*')
+
+      this.appData = Apps
+      console.log('All the apps: ', this.appData)
+      // console.log(Apps)
+    },
+  },
+  created() {
+    this.load()
+  }
 };
 </script>
+  
+<template>
+
+  <router-view v-model:appData="appData" @load="load" />
+
+</template>
+
 
 <style lang="scss">
 @import url('https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@300;700&display=swap');

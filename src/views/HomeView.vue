@@ -4,6 +4,7 @@
 import { supabase } from '../supabase'
 import AddApp from '@/components/AddApps.vue'
 import Nav from '@/components/Nav.vue'
+import { anyTypeAnnotation } from '@babel/types'
 
 
 export default {
@@ -12,26 +13,32 @@ export default {
     AddApp,
     Nav
   },
+  props: {
+    appData: Object
+  },
   data() {
     return {
       page_title: 'Blog',
       posts: [],
       data: [],
       dataUsers: [],
-      text: ''
+      text: '',
+      isFix: 0,
+      atId: 0,
+      app: []
     }
   },
-
+  emits: ['load'],
   methods: {
     async load() {
-      console.log(this.data, 'ihgihgih')
+      // console.log(this.data, 'ihgihgih')
 
       let { data: Apps, error } = await supabase
         .from('Apps')
         .select('*')
 
       this.data = Apps
-      console.log(Apps)
+      // console.log(Apps)
     },
     async loadUsers() {
       let { data: Users, error } = await supabase
@@ -39,7 +46,7 @@ export default {
         .select('*')
 
       this.dataUsers = Users
-      console.log(Users)
+      // console.log(Users)
     },
     async update() {
       const { data, error } = await supabase
@@ -78,7 +85,20 @@ export default {
     },
 
     onInput(e) {
-      this.text = e.target.value
+      if (this.isFix) {
+        console.log("Current editing app at id: ", e.currentTarget.id);
+        this.atId = e.currentTarget.id;
+        this.app = this.appData.find(x => x.id == e.currentTarget.id)
+        console.log(this.app)
+      }
+    },
+
+    switchState() {
+      this.isFix = !this.isFix
+      if (!this.isFix) {
+        this.atId = 0;
+      }
+
     },
 
     async updateUsers() {
@@ -96,8 +116,6 @@ export default {
   },
 
   created() {
-    this.load();
-    this.loadUsers()
   },
 }
 </script>
@@ -105,18 +123,26 @@ export default {
 <template>
   <Nav />
 
-  <div class="app-con">
-    <div class="app" v-for="(app, index) in data">
-      <router-link :to="'/app/' + app.id">
-        <img :src="app.icon_url" alt="" class="app-icon" referrerpolicy="no-referrer">
-      </router-link>
-      <h2>{{ app.name }}</h2>
+  <button @click="switchState">
+    <div v-if="!isFix">Hi there, press me</div>
+    <div v-else>Fixing mode ON</div>
+  </button>
+
+  <KeepAlive>
+    <div class="app-con">
+      <div class="app" v-for="(app) in appData" :key="app.id" :id="app.id" @click="onInput"
+        :class="{ edit: atId == app.id }">
+        <router-link :to="'/app/' + app.id">
+          <img :src="app.icon_url" alt="" class="app-icon" referrerpolicy="no-referrer">
+        </router-link>
+        <h2>{{ app.name }}</h2>
+      </div>
     </div>
-  </div>
+  </KeepAlive>
 
 
 
-  <AddApp @load="load"></AddApp>
+  <AddApp @load="$emit('load')" :opt="isFix ? 1 : 0" :id="atId" :app="app"></AddApp>
 </template>
 
 <style lang="scss">
@@ -129,16 +155,29 @@ export default {
   width: 177px;
   height: 230px;
 
+  box-sizing: border-box;
+
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   padding: 0;
   margin: 20px;
 
+  border: 3px solid transparent;
+  border-radius: 10px;
+
+  transition: all .2s ease;
+
+
   .app-icon {
     width: 160px;
     border-radius: 40px;
     aspect-ratio: 1/1;
   }
+}
+
+.edit {
+  border: 3px solid darkseagreen;
+
 }
 </style>

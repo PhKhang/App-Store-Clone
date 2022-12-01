@@ -5,6 +5,12 @@ export default {
     name: 'app',
     components: {
     },
+    props: {
+        appData: Object,
+        opt: Number,
+        id: String,
+        app: {}
+    },
     data() {
         return {
             name: '',
@@ -79,32 +85,65 @@ export default {
         },
 
         async addApp() {
-            var text2array = this.screen_raw.split('\n');
-            this.screen = text2array;
+            if (!this.opt) {
+                var text2array = this.screen_raw.split('\n');
+                this.screen = text2array;
 
-            let { data: Apps, error } = await supabase
-                .from('Apps')
-                .insert([
-                    {
-                        name: this.name,
-                        icon_url: this.icon_url,
-                        header_url: this.header_url,
-                        rating: this.rating,
-                        author: this.author,
-                        des: this.des,
-                        size: this.size,
-                        down_url: this.down_url,
-                        screens: this.screen,
-                    }
-                ])
+                let { data: Apps, error } = await supabase
+                    .from('Apps')
+                    .insert([
+                        {
+                            name: this.name,
+                            icon_url: this.icon_url,
+                            header_url: this.header_url,
+                            rating: this.rating,
+                            author: this.author,
+                            des: this.des,
+                            size: this.size,
+                            down_url: this.down_url,
+                            screens: this.screen,
+                        }
+                    ])
 
 
-            console.log(
-                this.screen,
-                text2array
-            )
+                console.log(
+                    this.screen,
+                    text2array
+                )
 
-            this.$emit('load')
+                this.$emit('load')
+            }
+            else {
+                console.log("Editing at: ", this.id)
+                var text2array = this.screen_raw.split('\n');
+                this.screen = text2array;
+
+                let { data: Apps, error } = await supabase
+                    .from('Apps')
+                    .update([
+                        {
+                            name: this.name,
+                            icon_url: this.icon_url,
+                            header_url: this.header_url,
+                            rating: this.rating,
+                            author: this.author,
+                            des: this.des,
+                            size: this.size,
+                            down_url: this.down_url,
+                            screens: this.screen,
+                        }
+                    ])
+                    .eq("id", this.id)
+
+
+                console.log(
+                    this.screen,
+                    text2array
+                )
+
+                this.$emit('load')
+
+            }
         },
 
         onInput(e) {
@@ -118,10 +157,26 @@ export default {
             this.screen_pre = this.screen_raw.split('\n');
             console.log(this.screen_pre)
             console.log('Typing...')
+        },
+
+        updateSelect() {
+            this.icon_url = this.app.icon_url;
+            this.name = this.app.name;
+            this.header_url = this.app.header_url;
+            this.rating = this.app.rating;
+            this.author = this.app.author;
+            this.des = this.app.des;
+            this.size = this.app.size;
+            this.down_url = this.app.down_url;
+            this.screen_raw = this.app.screens.join('\r\n');
+            this.type()
         }
     },
 
     created() {
+        if (this.app) {
+            console.log('thing')
+        }
     },
 }
 </script>
@@ -147,6 +202,8 @@ export default {
 
 
         <div class="output">
+            <button @click="$emit('load')">Reload all apps</button>
+            <button v-if="opt" @click="updateSelect">Refresh selected app to edit</button>
             <p><span>Name:</span> {{ name }}</p>
             <img :src="icon_url" alt="" referrerpolicy="no-referrer">
             <p><span>Header URL:</span> {{ header_url }}</p>
