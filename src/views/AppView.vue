@@ -208,7 +208,7 @@ export default {
 
 
     <div class="header">
-        <video class="back vid" v-if="app[0].header_url" autoplay loop>
+        <video class="back vid" v-if="app[0].header_url" autoplay muted loop>
             <source :src="app[0].header_url" type="video/mp4">
         </video>
         <div v-else class="back" v-for="(screen, index) in app[0].screens" :key="index">
