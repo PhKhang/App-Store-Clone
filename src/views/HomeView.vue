@@ -14,7 +14,10 @@ export default {
     Nav
   },
   props: {
-    appData: Object
+    appData: {
+      default: [{}],
+      type: Object
+    }
   },
   data() {
     return {
@@ -25,7 +28,10 @@ export default {
       text: '',
       isFix: 0,
       atId: 0,
-      app: []
+      app: [],
+      color: [29, 33, 27, 66, 53],
+      puzzle: [28, 33, 29, 30, 54],
+      offline: [25, 26, 24, 27]
     }
   },
   emits: ['load'],
@@ -123,12 +129,68 @@ export default {
 <template>
   <Nav />
 
-  <button @click="switchState">
-    <div v-if="!isFix">Hi there, press me</div>
-    <div v-else>Fixing mode ON</div>
-  </button>
+  <div class="content">
+    <button @click="switchState">
+      <div v-if="!isFix">Hi there, press me</div>
+      <div v-else>Fixing mode ON</div>
+    </button>
 
-  <KeepAlive>
+    <h1>Chơi game theo Thể loại</h1>
+    <div class="category-con">
+      <div class="category-inner-con">
+        <div class="category">
+          <h2 class="name">Hành động</h2>
+        </div>
+        <div class="category">
+          <h2 class="name">Chiến thuật</h2>
+        </div>
+        <div class="category">
+          <h2 class="name">Đóng vai</h2>
+        </div>
+        <div class="category">
+          <h2 class="name">Thư giãn</h2>
+        </div>
+      </div>
+    </div>
+
+    <h1>Một tí màu sắc cho đời bớt nhạt</h1>
+    <p>Với những game đầy màu sắc như...</p>
+    <div class="app-con">
+      <div class="app" v-for="(app) in appData.filter(app => color.includes(app.id))" :key="app.id" :id="app.id"
+        @click="onInput" :class="{ edit: atId == app.id }">
+        <router-link :to="'/app/' + app.id">
+          <img :src="app.icon_url" alt="" class="app-icon" referrerpolicy="no-referrer">
+        </router-link>
+        <h2>{{ app.name }}</h2>
+      </div>
+    </div>
+
+    <h1>Hãy chọn phương án đúng...</h1>
+    <p>Với những game puzzle hóc búa</p>
+    <div class="app-con">
+      <div class="app" v-for="(app) in appData.filter(app => puzzle.includes(app.id))" :key="app.id" :id="app.id"
+        @click="onInput" :class="{ edit: atId == app.id }">
+        <router-link :to="'/app/' + app.id">
+          <img :src="app.icon_url" alt="" class="app-icon" referrerpolicy="no-referrer">
+        </router-link>
+        <h2>{{ app.name }}</h2>
+      </div>
+    </div>
+
+    <h1>Chơi bất chấp!</h1>
+    <p>Offline, mọi lúc, mọi nơi</p>
+    <div class="app-con">
+      <div class="app" v-for="(app) in appData.filter(app => offline.includes(app.id))" :key="app.id" :id="app.id"
+        @click="onInput" :class="{ edit: atId == app.id }">
+        <router-link :to="'/app/' + app.id">
+          <img :src="app.icon_url" alt="" class="app-icon" referrerpolicy="no-referrer">
+        </router-link>
+        <h2>{{ app.name }}</h2>
+      </div>
+    </div>
+
+    <h1>Xem qua mọi game</h1>
+    <p>Luôn được cập nhật</p>
     <div class="app-con">
       <div class="app" v-for="(app) in appData" :key="app.id" :id="app.id" @click="onInput"
         :class="{ edit: atId == app.id }">
@@ -138,14 +200,92 @@ export default {
         <h2>{{ app.name }}</h2>
       </div>
     </div>
-  </KeepAlive>
 
 
 
-  <AddApp @load="$emit('load')" :opt="isFix ? 1 : 0" :id="atId" :app="app"></AddApp>
+    <AddApp @load="$emit('load')" :opt="isFix ? 1 : 0" :id="atId" :app="app"></AddApp>
+  </div>
 </template>
 
 <style lang="scss">
+.content {
+  padding-left: 40px;
+}
+
+h1 {
+  margin-bottom: 5px;
+}
+
+p {
+  margin-top: 6px;
+  margin-bottom: 6px;
+}
+
+.category-con {
+  overflow: scroll;
+
+  .category-inner-con {
+    width: max-content;
+
+
+    .category {
+      display: inline-block;
+      position: relative;
+      margin: 30px 10px;
+
+      width: 360px;
+      height: 190px;
+      border-radius: 20px;
+
+      box-shadow: 0 0 15px 0 rgba(5, 35, 63, 0.736);
+
+      .name {
+        position: relative;
+        top: 50%;
+        transform: translate(0, -100%);
+
+        margin-left: 10px;
+
+        font-size: 40px;
+        color: white;
+      }
+    }
+
+    .category:nth-child(1) {
+      background-color: #f76a4f;
+      background-image: linear-gradient(30deg, #ffac7c 12%, transparent 12.5%, transparent 87%, #ffac7c 87.5%, #ffac7c), linear-gradient(150deg, #ffac7c 12%, transparent 12.5%, transparent 87%, #ffac7c 87.5%, #ffac7c), linear-gradient(30deg, #ffac7c 12%, transparent 12.5%, transparent 87%, #ffac7c 87.5%, #ffac7c), linear-gradient(150deg, #ffac7c 12%, transparent 12.5%, transparent 87%, #ffac7c 87.5%, #ffac7c), linear-gradient(60deg, #ffac7c77 25%, transparent 25.5%, transparent 75%, #ffac7c77 75%, #ffac7c77), linear-gradient(60deg, #ffac7c77 25%, transparent 25.5%, transparent 75%, #ffac7c77 75%, #ffac7c77);
+      background-size: 20px 35px;
+      background-position: 0 0, 0 0, 10px 18px, 10px 18px, 0 0, 10px 18px;
+    }
+
+    .category:nth-child(2) {
+      background-color: #59457a;
+      background-image: repeating-linear-gradient(45deg, #8664ec 25%, transparent 25%, transparent 75%, #8664ec 75%, #8664ec), repeating-linear-gradient(45deg, #8664ec 25%, #59457a 25%, #59457a 75%, #8664ec 75%, #8664ec);
+      background-position: 0 0, 20px 20px;
+      background-size: 40px 40px;
+    }
+
+    .category:nth-child(3) {
+      background-color: #f76a4f;
+      background-image: radial-gradient(ellipse farthest-corner at 20px 20px, #ffac7c, #ffac7c 50%, #f76a4f 50%);
+      background-size: 20px 20px;
+    }
+
+    .category:nth-child(4) {
+      background-color: #387eee;
+      opacity: 0.8;
+      background-image: radial-gradient(circle at center center, #71cdf3, #387eee), repeating-radial-gradient(circle at center center, #71cdf3, #71cdf3, 10px, transparent 20px, transparent 10px);
+      background-blend-mode: multiply;
+    }
+
+  }
+}
+
+.category-con::-webkit-scrollbar {
+  display: none;
+}
+
+
 .app-con {
   display: flex;
   flex-wrap: wrap;
@@ -153,13 +293,14 @@ export default {
 
 .app {
   width: 177px;
-  height: 230px;
+  min-height: 230px;
 
   box-sizing: border-box;
 
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  align-items: flex-start;
   padding: 0;
   margin: 20px;
 

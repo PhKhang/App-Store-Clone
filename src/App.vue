@@ -7,7 +7,7 @@ export default {
   },
   data() {
     return {
-      appData: {}
+      appData: [{}]
     }
   },
   setup() {

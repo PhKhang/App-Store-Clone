@@ -30,7 +30,7 @@ export default {
         vibrant() {
             Object.keys(this.palette).length
             if (Object.keys(this.palette).length == 0) {
-                return '#fff';
+                return '#000';
             }
             return this.palette.Vibrant.getHex();
         },
@@ -44,28 +44,28 @@ export default {
         darkvi() {
             Object.keys(this.palette).length
             if (Object.keys(this.palette).length == 0) {
-                return '#fff';
+                return '#000';
             }
             return this.palette.DarkVibrant.getHex();
         },
         muted() {
             Object.keys(this.palette).length
             if (Object.keys(this.palette).length == 0) {
-                return '#fff';
+                return '#000';
             }
             return this.palette.Muted.getHex();
         },
         lightmuted() {
             Object.keys(this.palette).length
             if (Object.keys(this.palette).length == 0) {
-                return '#fff';
+                return '#000';
             }
             return this.palette.LightMuted.getHex();
         },
         darkmuted() {
             Object.keys(this.palette).length
             if (Object.keys(this.palette).length == 0) {
-                return '#fff';
+                return '#000';
             }
             return this.palette.DarkMuted.getHex();
         },
@@ -291,7 +291,8 @@ export default {
     height: 700px;
     max-height: 773px;
 
-    background: linear-gradient(to right, v-bind(darkvi) 28.45%, rgba(122, 122, 122, 0.185) 67.48%, v-bind(darkvi) 99.95%);
+    background-color: black;
+    background: linear-gradient(to right, v-bind(darkvi) 28.45%, rgba(37, 37, 37, 0.185) 67.48%, v-bind(darkvi) 99.95%);
     position: relative;
 
     color: v-bind(lightvi);
@@ -306,6 +307,7 @@ export default {
         z-index: -1;
         width: 80%;
         height: 100%;
+
 
         img {
             width: 100%;
