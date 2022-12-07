@@ -69,10 +69,10 @@ export default       {
             <div class="back"></div>
             <p class="load" v-if="kiem()">Loading...</p>
             <div class="results" v-else>
-                <div class="result" v-for="(app) in data" :key="app.id">
+                <router-link" class="result" v-for="(app) in data" :key="app.id" :to="app.down_url">
                     <img class="icon" :src="app.icon_url" alt="" referrerpolicy="no-referrer">
                     <p>{{ app.name }}</p>
-                </div>
+                </router-link">
             </div>
         </div>
     </div>
