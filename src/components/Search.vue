@@ -80,7 +80,7 @@ export default {
 </template>
 
 <style scoped lang="scss">
-.search-box {
+.search-box         {
     width: fit-content;
 
     .search-under {
