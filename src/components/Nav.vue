@@ -5,6 +5,7 @@
             App Store
         </router-link>
 
+        <Search />
         <div class="links">
             <router-link to="/login">Login</router-link>
             <router-link to="/register">Register</router-link>
@@ -13,8 +14,12 @@
 </template>
 
 <script>
-export default {
+import Search from '@/components/Search.vue';
 
+export default {
+    components: {
+        Search
+    }
 }
 </script>
 
