@@ -2,7 +2,7 @@
 <script>
 import { supabase } from '../supabase'
 
-export default {
+export default       {
     data() {
         return {
             searchQuery: "",
