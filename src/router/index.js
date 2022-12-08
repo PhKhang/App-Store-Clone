@@ -22,7 +22,7 @@ const routes = [
     }
   },
   {
-    path: '/test',
+    path: '/buy/:id',
     component: Test,
   },
   {
