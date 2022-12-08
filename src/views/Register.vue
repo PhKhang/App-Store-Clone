@@ -10,7 +10,7 @@
         <!-- Register -->
         <div class="box">
             <form @submit.prevent="register" class="p-8 flex flex-col bg-light-grey rounded-md shadow-lg">
-                <h1 class="text-3xl text-at-light-green mb-4">Register</h1>
+                <h1 class="text-3xl text-at-light-green mb-4">Vu, Dang ki di</h1>
                 <div class="flex flex-col mb-2">
                     <label for="email" class="mb-1 text-sm text-at-light-green">Email</label>
                     <input type="text" required class="p-2 text-gray-500 focus:outline-none" id="email"
