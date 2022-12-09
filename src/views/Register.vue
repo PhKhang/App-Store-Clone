@@ -1,39 +1,100 @@
 <template>
-    <div class="outer max-w-screen-sm mx-auto px-4 py-10">
-        <Nav />
-
-        <!-- Error Handling -->
-        <div v-if="errorMsg" class="mb-10 p-4 rounded-md bg-light-grey shadow-lg">
-            <p class="text-red-500">{{ errorMsg }}</p>
+    <Nav />
+    <div class="outer">
+        <div class="columns">
+            <div class="column">
+                <img src="https://play-lh.googleusercontent.com/hNY9sHSFng41zM41-7reQQHhvEwgsLfaKT_c7v7CEKVudOLRYld6UgVcnlG-xQNXyDM=w240-h480-rw"
+                    referrerpolicy="no-referrer">
+                <img src="https://play-lh.googleusercontent.com/XdcScI3Zuy0CmXDKuUxlktK9JvMnM_WTVxpKQ0NikRtBacWTzc-nMVTdtjDFs9LPwwg=w240-h480-rw"
+                    referrerpolicy="no-referrer">
+                <img src="https://play-lh.googleusercontent.com/2yH_JCxn7D9FttXZViPhmvIEDfRhio5qdLdWJLxcIfh8PjIkVeBgt_Gj7q21dIRp97g=w240-h480-rw"
+                    referrerpolicy="no-referrer">
+                <img src="https://tse4.mm.bing.net/th?id=OIP.sdkOUG8y4yZs33SWJjk95wHaHp&pid=Api&P=0"
+                    referrerpolicy="no-referrer">
+            </div>
+            <div class="column">
+                <img src="https://play-lh.googleusercontent.com/CJ-qBO1DxxZ9OjuX1x0db-dKCe4Q0Y-hc79ONlRr5zUeIIqQpInhR4SctPzlb7ap0w=w240-h480-rw"
+                    referrerpolicy="no-referrer">
+                <img src="https://play-lh.googleusercontent.com/fDYdsxcx4rt4XWMFRhIdaDcgDkYkarVhGXYMZH3qnxAIgY0fyo4gIoVgoEtyVCnC5n0=w240-h480-rw"
+                    referrerpolicy="no-referrer">
+                <img src="https://play-lh.googleusercontent.com/ExTusrE6tBOXwC1uzd3EFHYSrlTv1UabD-rMMA2D3Q5WOTNZtAK5LomyqPI5O7LP774=w240-h480-rw"
+                    referrerpolicy="no-referrer">
+                <img src="https://play-lh.googleusercontent.com/bz1cf3mlWDba3SjZedKjjgSetdVKvZ6PxdPlocRrr3q1NM_jCnwNJ2xQ_VsEuQKGpB0"
+                    referrerpolicy="no-referrer">
+            </div>
+            <div class="column">
+                <img src="https://image.winudf.com/v2/image1/Y29tLnN1cGVyY2VsbC5ib29tYmVhY2hfaWNvbl8xNTU1MzI2OTcyXzA4NQ/icon.png?w=140&fakeurl=1"
+                    referrerpolicy="no-referrer">
+                <img src="https://play-lh.googleusercontent.com/WNWZaxi9RdJKe2GQM3vqXIAkk69mnIl4Cc8EyZcir2SKlVOxeUv9tZGfNTmNaLC717Ht=w240-h480"
+                    referrerpolicy="no-referrer">
+                <img src="https://play-lh.googleusercontent.com/YMSRhM3aMa62_gD8JxlJeEF2AvOxd7BGRNo2mNkJ_CqRhyBJToXPUZ5qHHNbp4TT7qU=w240-h480-rw"
+                    referrerpolicy="no-referrer">
+                <img src="https://play-lh.googleusercontent.com/7ZUSJ7zfFSHlyjUBH2oWBJGkdW3CNSp7Tl6ZX7AuFcQSQbJut_tZP2GAyxheSa4OsVg=w240-h480-rw"
+                    referrerpolicy="no-referrer">
+            </div>
+            <div class="column">
+                <img src="https://play-lh.googleusercontent.com/Xdplpd2qDjHDG7cPMROU42NpIPiz3-QRIDXat1RDoDL3hm77boOFqmqOaDvSKb9FHq9I=w240-h480-rw"
+                    referrerpolicy="no-referrer">
+                <img src="https://play-lh.googleusercontent.com/WRqyDBHjPjPtTNFLE-viIQFdmSjc16v5RKDEQshMccPEhMRBoYpNvrRe1wfLNuU8Hb0=w240-h480-rw"
+                    referrerpolicy="no-referrer">
+                <img src="https://image.winudf.com/v2/image1/Y29tLnN1cGVyY2VsbC5jbGFzaHJveWFsZV9pY29uXzE1OTk3MjQzODlfMDk3/icon.png?w=280&fakeurl=1"
+                    referrerpolicy="no-referrer">
+                <img src="https://image.winudf.com/v2/image1/Y29tLnN1cGVyY2VsbC5icmF3bHN0YXJzX2ljb25fMTYwNTA4MjQ3M18wNDY/icon.png?w=140&fakeurl=1"
+                    referrerpolicy="no-referrer">
+            </div>
+            <div class="column">
+                <img src="https://image.winudf.com/v2/image1/Y29tLnN1cGVyY2VsbC5oYXlkYXlfaWNvbl8xNTYxMzc5NDYyXzA0Ng/icon.png?w=140&fakeurl=1"
+                    referrerpolicy="no-referrer">
+                <img src="https://image.winudf.com/v2/image1/Y29tLmlubmVyc2xvdGguc3BhY2VtYWZpYV9pY29uXzE2MjU2NzQyMTZfMDg0/icon.png?w=280&fakeurl=1"
+                    referrerpolicy="no-referrer">
+                <img src="https://play-lh.googleusercontent.com/lSsveSVEIpCjixX8K3lQSe2BSbrcUIu1Faum87k_Kbje_xIE5aEFDMGOPYCIJCJfWtQ=w240-h480-rw"
+                    referrerpolicy="no-referrer">
+                <img src="https://play-lh.googleusercontent.com/S3GPwY1-mc5876ZnMk65-VrG3Xlh1R8zgK-Q_LlnbjZ7llyyv0ZGWIlNnBM7LckMMzYy=w240-h480-rw"
+                    referrerpolicy="no-referrer">
+            </div>
+            <div class="column">
+                <img src="https://image.winudf.com/v2/image1/Y29tLmlyb25oaWRlZ2FtZXMuYW5kcm9pZC5raW5nZG9tcnVzaF9pY29uXzE1NjY5OTUzMjdfMDkx/icon.png?w=140&fakeurl=1"
+                    referrerpolicy="no-referrer">
+                <img src="https://image.winudf.com/v2/image1/Y29tLmdhbWUua2tpcnVrLm15YWRvcmFibGVjYXRzX2ljb25fMTY0MjQzOTkwNF8wODc/icon.png?w=100&fakeurl=1&type=.webp"
+                    referrerpolicy="no-referrer">
+                <img src="https://image.winudf.com/v2/image1/Y29tLmFjdGl2aXNpb24uY2FsbG9mZHV0eS5zaG9vdGVyX2ljb25fMTYzNzA0NjEyOF8wMDc/icon.png?w=140&fakeurl=1"
+                    referrerpolicy="no-referrer">
+                <img src="https://image.winudf.com/v2/image1/Y29tLnJvdmlvLmJhYmFfaWNvbl8xNjY5MDQ3NDEzXzA1NQ/icon.png?w=140&fakeurl=1"
+                    referrerpolicy="no-referrer">
+            </div>
         </div>
 
+
+        <!-- Error Handling -->
+
         <!-- Register -->
+
         <div class="box">
-            <form @submit.prevent="register" class="p-8 flex flex-col bg-light-grey rounded-md shadow-lg">
-                <h1 class="text-3xl text-at-light-green mb-4">Vu, Dang ki di</h1>
-                <div class="flex flex-col mb-2">
-                    <label for="email" class="mb-1 text-sm text-at-light-green">Email</label>
-                    <input type="text" required class="p-2 text-gray-500 focus:outline-none" id="email"
-                        v-model="email" />
+            <div v-if="errorMsg">
+                <p class="text-red-500">{{ errorMsg }}</p>
+            </div>
+            <form @submit.prevent="register">
+                <h1>Hello</h1>
+                <h2>and welcome to our store</h2>
+                <div class="name">
+                    <input type="name" required id="name" v-model="name" :placeholder="' \uf007  Your name?'" />
                 </div>
-                <div class="flex flex-col mb-2">
-                    <label for="password" class="mb-1 text-sm text-at-light-green">Password</label>
-                    <input type="password" required class="p-2 text-gray-500 focus:outline-none" id="password"
-                        v-model="password" />
+                <div class="email">
+                    <input type="text" required id="email" v-model="email" :placeholder="'\uf1d8  ...email?'" />
                 </div>
-                <div class="flex flex-col mb-2">
-                    <label for="confirmPassword" class="mb-1 text-sm text-at-light-green">Confirm Password</label>
-                    <input type="password" required class="p-2 text-gray-500 focus:outline-none" id="confirmPassword"
-                        v-model="confirmPassword" />
+                <div class="password">
+                    <input type="password" required id="password" v-model="password"
+                        :placeholder="'\uf023  ...and your password'" />
                 </div>
-                <button type="submit" class="mt-6 py-2 px-6 rounded-sm self-start text-sm
-            text-white bg-at-light-green duration-200 border-solid
-            border-2 border-transparent hover:border-at-light-green hover:bg-white
-            hover:text-at-light-green">
+                <div class="confirm-pass">
+                    <input type="password" required id="confirmPassword" v-model="confirmPassword"
+                        :placeholder="'\uf023  Just making sure it\'s the right one'" />
+                </div>
+                <!-- <button type="submit">
                     Register
-                </button>
-                <!-- <router-link class="text-sm mt-6 text-center" :to="{ name: 'Login' }">
-                    Already have an account? <span class="text-at-light-green">Login</span>
+                </button> -->
+                <!-- <router-link :to="{ name: 'Login' }">
+                    Already have an account? <span>Login</span>
                 </router-link> -->
             </form>
         </div>
@@ -89,18 +150,90 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .outer {
     position: relative;
     height: 100vh;
+}
+
+.columns {
+    position: absolute;
+    display: flex;
+}
+
+.column {
+    width: fit-content;
+
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+
+    border: solid;
+
+    img {
+        width: 120px;
+        aspect-ratio: 1/1;
+        border-radius: 25%;
+    }
 }
 
 .box {
     width: 600px;
 
     position: relative;
-    top: 50%;
+    top: 20%;
     margin: auto;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+
+    h1 {
+        font-size: 80px;
+        text-align: center;
+        margin-bottom: 0px;
+    }
+
+    h2 {
+        text-align: center;
+        margin-top: 0px;
+        margin-bottom: 30px;
+    }
+}
+
+.box form {
+    input {
+        font-family: 'Lexend deca', 'FontAwesome';
+        height: 45px;
+        width: 330px;
+
+        // only for the gradient border
+        padding: 5px;
+        border: double 3.5px transparent;
+        border-radius: 15px;
+        background-image: linear-gradient(white, white),
+            linear-gradient(to right, #050423, #2EDBFF);
+        background-origin: border-box;
+        background-clip: padding-box, border-box;
+
+        margin-top: 14px;
+
+        font-size: 17px;
+        font-weight: 400px;
+
+        &::placeholder {
+            color: hsl(213, 4%, 1%);
+            font-size: 17px;
+            font-weight: 400px;
+        }
+    }
+
+    button {
+        background-color: none;
+        border: none;
+    }
+
 }
 </style>
   
