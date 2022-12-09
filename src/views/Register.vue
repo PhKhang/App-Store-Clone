@@ -157,8 +157,14 @@ export default {
 }
 
 .columns {
+    width: 100%;
+    max-width: 1100px;
+
     position: absolute;
+    left: 50%;
+    transform: translate(-50%);
     display: flex;
+    justify-content: space-evenly;
 }
 
 .column {
@@ -187,6 +193,8 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    overflow-y: hidden;
 
 
     h1 {
