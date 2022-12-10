@@ -7,8 +7,7 @@
 
         <Search />
         <div class="links">
-            <router-link to="/login">Login</router-link>
-            <router-link to="/register">Register</router-link>
+            <router-link to="/register">Login/Register</router-link>
         </div>
     </nav>
 </template>
@@ -54,7 +53,7 @@ nav {
         display: flex;
         align-items: center;
         justify-content: flex-end;
-        gap: 50px;
+        gap: 10px;
     }
 }
 </style>

@@ -2,7 +2,7 @@
 <script>
 import { supabase } from '../supabase'
 
-export default       {
+export default {
     data() {
         return {
             searchQuery: "",
@@ -61,18 +61,29 @@ export default       {
     }
 }
 </script>
-
+<svg class='hideSvgSoThatItSupportsFirefox'>
+    <filter id='sharpBlur'>
+        <feGaussianBlur stdDeviation='90'></feGaussianBlur>
+        <feColorMatrix type='matrix' values='1 0 0 0 0, 0 1 0 0 0, 0 0 1 0 0, 0 9 9 9 0'></feColorMatrix>
+        <feComposite in2='SourceGraphic' operator='in'></feComposite>
+    </filter>
+</svg>
 <template>
     <div class="search-box">
-        <input type="text" @input="search()" v-model="searchQuery" placeholder="Search for apps and games...">
+
+
+        <form @submit.prevent="search()">
+            <input type="text" v-model="searchQuery" placeholder="Search for apps and games...">
+        </form>
+
         <div class="search-under">
-            <div class="back"></div>
+            <div class="back" v-if="data.length || load"></div>
             <p class="load" v-if="kiem()">Loading...</p>
-            <div class="results" v-else>
-                <router-link" class="result" v-for="(app) in data" :key="app.id" :to="'/app/' + app.id">
+            <div v-else class="results">
+                <router-link class="result" v-for="(app) in data" :key="app.id" :to="'/app/' + app.id">
                     <img class="icon" :src="app.icon_url" alt="" referrerpolicy="no-referrer">
                     <p>{{ app.name }}</p>
-                </router-link">
+                </router-link>
             </div>
         </div>
     </div>
@@ -80,8 +91,8 @@ export default       {
 </template>
 
 <style scoped lang="scss">
-.search-box         {
-    width: fit-content;
+.search-box {
+    width: 300px;
 
     .search-under {
         z-index: 99;
@@ -92,12 +103,19 @@ export default       {
 
     .back {
         position: absolute;
+        top: 1px;
 
         height: 100%;
         width: 100%;
-        z-index: 90;
+        border-radius: 8px;
+        padding: 5px;
+        padding-top: 0;
+
+        z-index: -1;
         background-color: rgba(255, 255, 255, 0.875);
-        filter: blur(50px);
+        filter: url("#sharpBlur");
+
+        overflow: hidden;
     }
 
 
@@ -119,6 +137,10 @@ export default       {
         outline-color: #B2B5B8;
     }
 
+    p {
+        margin: 10px 10px;
+    }
+
     .results {
         position: relative;
         z-index: 99;
@@ -126,6 +148,9 @@ export default       {
         display: flex;
         flex-direction: column;
         gap: 10px;
+
+
+        padding: 10px 10px;
 
         .result {
             position: relative;
@@ -144,10 +169,26 @@ export default       {
 
             p {
                 margin-left: 5px;
-                color: #63676C;
+                text-align: left;
+                // color: #63676C;
             }
         }
     }
 
+}
+
+a {
+    text-decoration: none;
+
+    &:visited {
+        color: inherit;
+    }
+}
+
+svg {
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    visibility: hidden;
 }
 </style>

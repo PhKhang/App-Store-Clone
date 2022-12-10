@@ -1,6 +1,8 @@
 <template>
     <Nav />
     <div class="outer">
+        <div class="back" id="right"></div>
+        <div class="back" id="left"></div>
         <div class="columns">
             <div class="column">
                 <img src="https://play-lh.googleusercontent.com/hNY9sHSFng41zM41-7reQQHhvEwgsLfaKT_c7v7CEKVudOLRYld6UgVcnlG-xQNXyDM=w240-h480-rw"
@@ -65,14 +67,16 @@
         </div>
 
 
-        <!-- Error Handling -->
+
 
         <!-- Register -->
-
         <div class="box">
+
+            <!-- Error Handling -->
             <div v-if="errorMsg">
-                <p class="text-red-500">{{ errorMsg }}</p>
+                <p class="error">{{ errorMsg }}</p>
             </div>
+
             <form @submit.prevent="register">
                 <h1>Hello</h1>
                 <h2>and welcome to our store</h2>
@@ -90,12 +94,12 @@
                     <input type="password" required id="confirmPassword" v-model="confirmPassword"
                         :placeholder="'\uf023  Just making sure it\'s the right one'" />
                 </div>
-                <!-- <button type="submit">
+                <button type="submit">
                     Register
-                </button> -->
-                <!-- <router-link :to="{ name: 'Login' }">
+                </button>
+                <router-link :to="{ name: 'login' }">
                     Already have an account? <span>Login</span>
-                </router-link> -->
+                </router-link>
             </form>
         </div>
     </div>
@@ -111,6 +115,12 @@ export default {
     name: "register",
     components: {
         Nav
+    },
+    props: {
+        appData: {
+            default: [{}],
+            type: Object
+        }
     },
     setup() {
         // Create data / vars
@@ -130,7 +140,7 @@ export default {
 
                     });
                     if (error) throw error;
-                    router.push({ name: "Login" });
+                    router.push({ name: "login" });
                 } catch (error) {
                     errorMsg.value = error.message;
                     setTimeout(() => {
@@ -154,13 +164,32 @@ export default {
 .outer {
     position: relative;
     height: 100vh;
+    width: 100%;
+
+    overflow-x: hidden;
+}
+
+.back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+
+    &#right {
+        background: linear-gradient(237.67deg, rgba(255, 255, 255, 0) 35%, #FFFFFF 75%);
+    }
+
+    &#left {
+        background: linear-gradient(122.33deg, rgba(255, 255, 255, 0) 35%, #FFFFFF 75%);
+    }
 }
 
 .columns {
-    width: 100%;
-    max-width: 1100px;
+    width: 1100px;
 
     position: absolute;
+    z-index: -1;
     left: 50%;
     transform: translate(-50%);
     display: flex;
@@ -174,8 +203,6 @@ export default {
     flex-direction: column;
     gap: 25px;
 
-    border: solid;
-
     img {
         width: 120px;
         aspect-ratio: 1/1;
@@ -187,7 +214,7 @@ export default {
     width: 600px;
 
     position: relative;
-    top: 20%;
+    top: 10%;
     margin: auto;
 
     display: flex;
@@ -198,7 +225,7 @@ export default {
 
 
     h1 {
-        font-size: 80px;
+        font-size: 100px;
         text-align: center;
         margin-bottom: 0px;
     }
@@ -221,7 +248,7 @@ export default {
         border: double 3.5px transparent;
         border-radius: 15px;
         background-image: linear-gradient(white, white),
-            linear-gradient(to right, #050423, #2EDBFF);
+            linear-gradient(to right, #050423, #2EDBFF) !important;
         background-origin: border-box;
         background-clip: padding-box, border-box;
 
@@ -235,6 +262,18 @@ export default {
             font-size: 17px;
             font-weight: 400px;
         }
+
+        &:-webkit-autofill,
+        &:-webkit-autofill:focus {
+            transition: background-color 600000s 0s, color 600000s 0s;
+        }
+    }
+
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover,
+    input:-webkit-autofill:focus,
+    input:-webkit-autofill:active {
+        transition: background-color 5000s ease-in-out 0s;
     }
 
     button {
