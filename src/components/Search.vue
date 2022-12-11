@@ -76,7 +76,7 @@ export default {
             <input type="text" v-model="searchQuery" placeholder="Search for apps and games...">
         </form>
 
-        <div class="search-under"  v-if="data.length || load">
+        <div class="search-under"  v-if="data.length || load==true">
             <div class="back" v-if="data.length || load" ></div>
             <p class="load" v-if="kiem()">Loading...</p>
             <div v-else class="results">
