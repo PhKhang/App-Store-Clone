@@ -77,7 +77,7 @@ export default {
         </form>
 
         <div class="search-under"  v-if="data.length || load==true">
-            <div class="back" v-if="data.length || load" ></div>
+            <div class="back" v-if="data.length > 0 || load" ></div>
             <p class="load" v-if="kiem()">Loading...</p>
             <div v-else class="results">
                 <router-link class="result" v-for="(app) in data" :key="app.id" :to="'/app/' + app.id">
