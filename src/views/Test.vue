@@ -5,8 +5,6 @@
     <!-- Set up a container element for the button -->
     <div id="paypal-button-container"></div>
 
-    <p>{{ cardInfo }}</p>
-
     <div id="screen-initial">
         <h1 id="msg">Loading...</h1>
         <progress id="load-progress" value="0" max="100"></progress>
@@ -62,8 +60,7 @@ export default {
     },
     data() {
         return {
-            app,
-            cardInfo: '',
+            app
         }
     },
     methods: {
@@ -198,7 +195,6 @@ export default {
                 const blinkCardResult = await blinkCardRecognizer.getResult();
                 if (blinkCardResult.state !== BlinkCardSDK.RecognizerResultState.Empty) {
                     console.log("BlinkCard results", blinkCardResult);
-                    cardInfo = blinkCardResult
 
                     const firstAndLastName = blinkCardResult.owner;
                     const cardNumber = blinkCardResult.cardNumber;
