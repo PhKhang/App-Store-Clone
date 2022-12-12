@@ -5,9 +5,6 @@
     <!-- Set up a container element for the button -->
     <div id="paypal-button-container"></div>
 
-    <p>
-        {{ cardInfo }}
-    </p>
 
     <div id="screen-initial">
         <h1 id="msg">Loading...</h1>
