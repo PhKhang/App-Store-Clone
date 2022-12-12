@@ -76,8 +76,8 @@ export default {
             <input type="text" v-model="searchQuery" placeholder="Search for apps and games...">
         </form>
 
-        <div class="search-under"  v-if="data.length || load==true">
-            <div class="back" v-if="data.length > 0 || load" ></div>
+        <div class="search-under" v-if="(data.length > 0 || load == true) && searchQuery != ''">
+            <div class="back" v-if="data.length > 0 || load"></div>
             <p class="load" v-if="kiem()">Loading...</p>
             <div v-else class="results">
                 <router-link class="result" v-for="(app) in data" :key="app.id" :to="'/app/' + app.id">
@@ -92,11 +92,11 @@ export default {
 
 <style scoped lang="scss">
 .search-box {
-    width: 300px;
+    width: 220px;
 
     .search-under {
         z-index: 99;
-        width: 300px;
+        width: 220px;
         position: absolute;
         padding-top: 10px;
     }
@@ -120,7 +120,7 @@ export default {
 
 
     input {
-        width: 300px;
+        width: 220px;
         height: 32px;
         border-radius: 8px;
 

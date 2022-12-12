@@ -98,7 +98,7 @@
                     Register
                 </button>
                 <router-link :to="{ name: 'login' }">
-                    Already have an account? <span>Login</span>
+                    Already have one? <span>Login</span>
                 </router-link>
             </form>
         </div>
@@ -161,6 +161,11 @@ export default {
 </script>
 
 <style scoped lang="scss">
+* {
+    box-sizing: border-box;
+    transition: all .4s ease;
+}
+
 .outer {
     position: relative;
     height: 100vh;
@@ -197,6 +202,8 @@ export default {
 }
 
 .column {
+    position: relative;
+
     width: fit-content;
 
     display: flex;
@@ -208,10 +215,38 @@ export default {
         aspect-ratio: 1/1;
         border-radius: 25%;
     }
+
+    &:nth-child(odd) {
+        margin-top: -50px;
+    }
+
+    animation: floatBubble 5s cubic-bezier(0, 0, 1, 1.42) 0s 1 forwards,
+    floatBubble2 3s linear 0s 1 forwards;
+}
+
+@keyframes floatBubble {
+    0% {
+        top: 30px;
+    }
+
+    100% {
+        top: -20px;
+    }
+}
+
+@keyframes floatBubble2 {
+    0% {
+        transform: scale(1.06);
+    }
+
+    100% {
+        transform: scale(1);
+    }
 }
 
 .box {
-    width: 600px;
+    width: 100%;
+    max-width: 600px;
 
     position: relative;
     top: 10%;
@@ -225,9 +260,21 @@ export default {
 
 
     h1 {
-        font-size: 100px;
+        font-size: 140px;
         text-align: center;
         margin-bottom: 0px;
+
+        background-color: #00DBDE;
+        background-image: linear-gradient(90deg, #00bbbe 0%, #FC00FF 100%);
+
+
+
+
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+
+        animation: textAnimate 5s ease-in-out 0s infinite alternate;
     }
 
     h2 {
@@ -237,11 +284,29 @@ export default {
     }
 }
 
+
+@keyframes textAnimate {
+    from {
+        filter: hue-rotate(0deg);
+
+    }
+
+    to {
+        filter: hue-rotate(110deg);
+
+    }
+}
+
 .box form {
+    div {
+        display: flex;
+    }
+
     input {
-        font-family: 'Lexend deca', 'FontAwesome';
+        font-family: 'Lexend deca', arial, 'FontAwesome';
         height: 45px;
-        width: 330px;
+        width: 100%;
+        max-width: 330px;
 
         // only for the gradient border
         padding: 5px;
@@ -252,6 +317,7 @@ export default {
         background-origin: border-box;
         background-clip: padding-box, border-box;
 
+        margin: auto;
         margin-top: 14px;
 
         font-size: 17px;
@@ -277,10 +343,50 @@ export default {
     }
 
     button {
-        background-color: none;
+        margin-top: 14px;
+
+        font-size: 17px;
+        color: white;
+        padding: 5px;
+        margin-left: 20px;
+        margin-right: 20px;
+
+        background-image: linear-gradient(to right, #24C6DC 0%, #514A9D 51%, #24C6DC 100%);
+
         border: none;
+        border-radius: 15px;
+
+
+        &:hover {
+            background-position: right center;
+        }
     }
 
+}
+
+@media screen and (max-width: 880px) {
+    .columns {
+        width: 800px;
+
+        left: 50%;
+        transform: translate(-50%);
+        display: flex;
+        justify-content: space-evenly;
+    }
+
+    .column {
+        width: fit-content;
+
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+
+        img {
+            width: 100px;
+            aspect-ratio: 1/1;
+            border-radius: 25%;
+        }
+    }
 }
 </style>
   

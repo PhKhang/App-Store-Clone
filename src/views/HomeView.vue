@@ -21,7 +21,7 @@ export default {
 	},
 	data() {
 		return {
-			page_title: 'Blog',
+			page_title: 'home',
 			posts: [],
 			data: [],
 			dataUsers: [],
@@ -153,7 +153,7 @@ export default {
 			</div>
 		</div>
 
-		<h1>Một tí màu sắc cho đời bớt nhạt</h1>
+		<h1>Một tí <span class="colorful">màu sắc</span> cho đời bớt nhạt</h1>
 		<p>Với những game đầy màu sắc như...</p>
 		<div class="app-con">
 			<div class="app" v-for="(app) in appData.filter(app => color.includes(app.id))" :key="app.id" :id="app.id"
@@ -208,8 +208,9 @@ export default {
 </template>
 
 <style lang="scss">
-.content {
-	padding-left: 40px;
+.content>* {
+	width: 100%;
+	padding: 0 20px;
 }
 
 h1 {
@@ -285,23 +286,34 @@ p {
 	display: none;
 }
 
+.colorful {
+	font-weight: inherit;
+	background-color: #00DBDE;
+	background-image: linear-gradient(90deg, #00bbbe 0%, #FC00FF 100%);
+
+
+
+
+	background-clip: text;
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
+
 
 .app-con {
+	padding-left: 5px;
+	padding-right: 5px;
+
 	display: flex;
 	flex-wrap: wrap;
 }
 
 .app {
 	width: 177px;
-	min-height: 230px;
 
 	box-sizing: border-box;
 
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: center;
-	align-items: flex-start;
-	padding: 0;
+	padding: 5px;
 	margin: 20px;
 
 	border: 3px solid transparent;
@@ -309,10 +321,14 @@ p {
 
 	transition: all .2s ease;
 
+	h2 {
+		margin-top: 0px;
+	}
+
 
 	.app-icon {
 		width: 160px;
-		border-radius: 40px;
+		border-radius: 25%;
 		aspect-ratio: 1/1;
 	}
 }
@@ -320,5 +336,20 @@ p {
 .edit {
 	border: 3px solid darkseagreen;
 
+}
+
+@media screen and (max-width: 600px) {
+	.app {
+		margin: 0px;
+		width: 120px;
+
+		h2 {
+			font-size: 16px;
+		}
+
+		.app-icon {
+			width: 100%;
+		}
+	}
 }
 </style>

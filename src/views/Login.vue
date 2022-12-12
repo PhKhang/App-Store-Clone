@@ -24,6 +24,7 @@ export default {
                     password: password.value,
                 });
                 if (error) throw error;
+                router.push({ name: "home" });
             } catch (error) {
                 errorMsg.value = `Error: ${error.message}`;
                 setTimeout(() => {
@@ -124,7 +125,7 @@ export default {
                 <h2>It's been a while</h2>
                 <div>
                     <input type="text" required id="email" v-model="email"
-                        :placeholder="'\uf1d8  Hope that you do remember your email'" />
+                        :placeholder="'\uf1d8  Again, your email?'" />
                 </div>
                 <div>
                     <input type="password" required id="password" v-model="password"
@@ -133,9 +134,8 @@ export default {
                 <button type="submit">
                     Login
                 </button>
-                <!-- <router-link  :to="{ name: 'Register' }">
-                    Don't have an account? <span class="text-at-light-green">Register</span>
-                </router-link> -->
+                <router-link :to="{ name: 'register' }">Don't have an account? <span>Register</span>
+                </router-link>
             </form>
         </div>
     </div>
@@ -144,6 +144,7 @@ export default {
 <style lang="scss" scoped>
 * {
     box-sizing: border-box;
+    transition: all .4s ease;
 }
 
 .outer {
@@ -177,10 +178,12 @@ export default {
 }
 
 .box form {
+
     input {
-        font-family: 'Lexend deca', 'FontAwesome';
+        font-family: 'Lexend deca', arial, 'FontAwesome';
         height: 45px;
-        width: 430px;
+        width: 100%;
+        max-width: 430px;
 
         // only for the gradient border
         padding: 5px;
@@ -196,6 +199,8 @@ export default {
         font-size: 17px;
         font-weight: 400px;
 
+
+
         &::placeholder {
             color: hsl(213, 4%, 1%);
             font-size: 17px;
@@ -206,6 +211,7 @@ export default {
         &:-webkit-autofill:focus {
             transition: background-color 600000s 0s, color 600000s 0s;
         }
+
     }
 
     input:-webkit-autofill,
@@ -216,8 +222,13 @@ export default {
     }
 
     button {
+        margin-top: 14px;
+
+        font-size: 17px;
+
         background-color: none;
         border: none;
+
     }
 
 }
@@ -283,5 +294,39 @@ export default {
     100% {
         transform: scale(1);
     }
+}
+
+@media screen and (max-width: 880px) {
+    .outer {
+        background: linear-gradient(122.33deg, rgba(255, 255, 255, 0) 30.62%, #FFFFFF 72.75%),
+            linear-gradient(237.67deg, rgba(255, 255, 255, 0) 30.62%, #FFFFFF 72.03%);
+    }
+
+    .box {
+        position: relative;
+
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        height: 100%;
+        width: 100%;
+        float: left;
+
+        h1 {
+            width: 100%;
+
+            font-size: 60px;
+            text-align: center;
+        }
+
+        h2 {
+            text-align: center;
+        }
+    }
+
+
 }
 </style>

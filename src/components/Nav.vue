@@ -7,7 +7,10 @@
 
         <Search />
         <div class="links">
-            <router-link to="/register">Login/Register</router-link>
+            <router-link to="/register">
+                <div class="desk">Login/Register</div>
+                <i class="mobile fa-solid fa-arrow-right-to-bracket fa-lg"></i>
+            </router-link>
         </div>
     </nav>
 </template>
@@ -54,6 +57,19 @@ nav {
         align-items: center;
         justify-content: flex-end;
         gap: 10px;
+    }
+}
+
+
+@media screen and (max-width: 600px) {
+    .desk {
+        display: none;
+    }
+}
+
+@media screen and (min-width: 601px) {
+    .mobile {
+        display: none;
     }
 }
 </style>
