@@ -346,20 +346,17 @@ export default {
         margin-top: 14px;
 
         font-size: 17px;
-        color: white;
+        color: black;
         padding: 5px;
         margin-left: 20px;
         margin-right: 20px;
 
-        background-image: linear-gradient(to right, #24C6DC 0%, #514A9D 51%, #24C6DC 100%);
+        background-color: white;
 
-        border: none;
+        border: 3.5px solid black;
         border-radius: 15px;
 
-
-        &:hover {
-            background-position: right center;
-        }
+        cursor: pointer;
     }
 
 }

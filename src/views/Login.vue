@@ -225,10 +225,17 @@ export default {
         margin-top: 14px;
 
         font-size: 17px;
+        color: black;
+        padding: 5px;
+        margin-left: 20px;
+        margin-right: 20px;
 
-        background-color: none;
-        border: none;
+        background-color: white;
 
+        border: 3.5px solid black;
+        border-radius: 15px;
+
+        cursor: pointer;
     }
 
 }
