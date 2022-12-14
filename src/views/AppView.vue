@@ -5,6 +5,8 @@ import { supabase } from '../supabase'
 import Nav from '@/components/Nav.vue'
 import Vibrant from 'node-vibrant'
 
+// let des = document.querySelector(".des").scrollHeight > document.querySelector(".des").clientHeight;
+
 
 export default {
     name: 'app',
@@ -17,6 +19,7 @@ export default {
     data() {
         return {
             page_title: 'Blog',
+            isOverflow: 0,
             posts: [],
             data: [],
             text: '',
@@ -174,6 +177,13 @@ export default {
 
 
         },
+        expandDes() {
+            console.log('Expanding...');
+            const des = document.querySelector(".des");
+            this.isOverflow = des.scrollHeight > des.clientHeight;
+            console.log((des.scrollHeight > des.clientHeight) ? 'overflow' : 'not');
+            document.querySelector(".des").style.height = "max-content";
+        },
 
         carousel() {
             console.log("Carousel")
@@ -187,7 +197,8 @@ export default {
                 slidesToShow: 2,
                 slidesToScroll: 1
             });
-        }
+        },
+
     },
 
     created() {
@@ -243,20 +254,41 @@ export default {
 
         <h3>Description</h3>
         <p class="des" style="white-space: pre-wrap">{{ app[0].des }}</p>
+        <button @click="expandDes" class="expand" v-if="!isOverflow">Read more <svg width="39" height="18"
+                viewBox="0 0 39 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M27.4394 0.376574C28.0251 -0.125524 28.9749 -0.125524 29.5607 0.376574L38.5607 8.09087C39.1465 8.59298 39.1465 9.40707 38.5607 9.90915L29.5607 17.6234C28.9749 18.1255 28.0251 18.1255 27.4394 17.6234C26.8536 17.1214 26.8536 16.3073 27.4394 15.8052L33.8787 10.2857L1.5 10.2861C0.671581 10.2861 0 9.71044 0 9.00034C0 8.29026 0.671581 7.71462 1.5 7.71462L33.8787 7.7143L27.4394 2.19486C26.8536 1.69275 26.8536 0.878684 27.4394 0.376574Z"
+                    fill="#331D0B" />
+            </svg>
+        </button>
+
         <h3>Comment</h3>
+
+
+
+        <!-- Nhap ten va review cua nguoi dung -->
         <input :value="text" @input="onInput" placeholder="Type here">
         <form action="" @submit.prevent="addReviews($route.params.id, text, comment_con)">
             <input :value="comment_con" @input="onInputCon" placeholder="Your review here">
         </form>
+
+
+
+        <!-- Hien thi ten va review nguoi dung truoc khi gui len database -->
         <p>Name: {{ text }}</p>
         <p>Review: {{ comment_con }}</p>
 
+
+
+        <!-- Hien thi tat ca review cua ung dung -->
         <div class="comment-cont">
             <div class="comment" v-for="(Review, index) in comments" :key="index">
                 <h3>{{ Review.name }}</h3>
                 <p>{{ Review.content }}</p>
             </div>
         </div>
+
+
     </div>
 
 
@@ -448,6 +480,42 @@ export default {
 
     p {
         color: #63676C;
+    }
+
+    .des {
+        width: 100%;
+
+        line-height: 2.5ex;
+        height: 7.5ex;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+
+        transition: all 4s ease;
+    }
+
+    .expand {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        height: 30px;
+        width: 300px;
+        padding-left: 20px;
+        margin: 20px;
+        font-weight: 500;
+        font-size: 16px;
+
+        background-color: v-bind(lightvi);
+        border: none;
+        border-radius: 15px;
+
+
+        cursor: pointer;
+
+        svg {
+            transform: scale(.7);
+        }
     }
 
 }

@@ -1,18 +1,5 @@
 <template>
-    <nav>
-        <router-link to="/" class="logo">
-            <i></i>
-            App Store
-        </router-link>
 
-        <Search />
-        <div class="links">
-            <router-link to="/register">
-                <div class="desk">Login/Register</div>
-                <i class="mobile fa-solid fa-arrow-right-to-bracket fa-lg"></i>
-            </router-link>
-        </div>
-    </nav>
 </template>
 
 <script>
@@ -25,12 +12,9 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
-* {
-    font-weight: 700;
-}
-
+<style lang="scss">
 nav {
+
     box-sizing: border-box;
 
     position: relative;
@@ -48,6 +32,7 @@ nav {
     gap: 20px;
 
     a {
+        font-weight: 700;
         text-decoration: none;
         color: inherit;
     }
@@ -57,6 +42,10 @@ nav {
         align-items: center;
         justify-content: flex-end;
         gap: 10px;
+
+        .desk {
+            font-weight: 700;
+        }
     }
 }
 

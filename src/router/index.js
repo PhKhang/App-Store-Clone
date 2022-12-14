@@ -4,6 +4,7 @@ import App from '../views/AppView.vue'
 import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
 import Test from '../views/Test.vue'
+import Me from '../views/AccountView.vue'
 
 const routes = [
   {
@@ -20,6 +21,11 @@ const routes = [
     component: function () {
       return import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
     }
+  },
+  {
+    path: '/me',
+    name: 'me',
+    component: Me
   },
   {
     path: '/buy/:id',
