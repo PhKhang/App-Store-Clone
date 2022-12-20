@@ -100,6 +100,8 @@ body {
   font-family: 'Lexend Deca', Calibri, sans-serif;
   font-weight: 300;
   text-align: justify;
+
+  transition: all .4s ease;
 }
 
 body {

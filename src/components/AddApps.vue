@@ -23,7 +23,10 @@ export default {
             down_url: '',
             screen: [],
             screen_raw: '',
-            screen_pre: []
+            screen_pre: [],
+            category: [],
+            category_raw: '',
+            category_pre: []
         }
     },
     emits: ['load'],
@@ -88,6 +91,8 @@ export default {
             if (!this.opt) {
                 var text2array = this.screen_raw.split('\n');
                 this.screen = text2array;
+                text2array = this.category_raw.split('\n')
+                this.category = text2array
 
                 let { data: Apps, error } = await supabase
                     .from('Apps')
@@ -102,6 +107,7 @@ export default {
                             size: this.size,
                             down_url: this.down_url,
                             screens: this.screen,
+                            category: this.category
                         }
                     ])
 
@@ -117,6 +123,8 @@ export default {
                 console.log("Editing at: ", this.id)
                 var text2array = this.screen_raw.split('\n');
                 this.screen = text2array;
+                text2array = this.category_raw.split('\n')
+                this.category = text2array
 
                 let { data: Apps, error } = await supabase
                     .from('Apps')
@@ -131,6 +139,7 @@ export default {
                             size: this.size,
                             down_url: this.down_url,
                             screens: this.screen,
+                            category: this.category
                         }
                     ])
                     .eq("id", this.id)
@@ -156,7 +165,11 @@ export default {
         type() {
             this.screen_pre = this.screen_raw.split('\n');
             console.log(this.screen_pre)
+            this.category_pre = this.category_raw.split('\n')
+            console.log(this.category_pre)
+
             console.log('Typing...')
+
         },
 
         updateSelect() {
@@ -169,6 +182,7 @@ export default {
             this.size = this.app.size;
             this.down_url = this.app.down_url;
             this.screen_raw = this.app.screens.join('\r\n');
+            this.category_raw = this.app.category.join('\r\n');
             this.type()
         }
     },
@@ -194,6 +208,8 @@ export default {
             <textarea v-model="des" type="text" placeholder="App description"></textarea>
             <textarea @input="type()" v-model="screen_raw" type="text"
                 :placeholder="'Screenshots URLs: \nyoutube.com \nm.me'" :rows="6"></textarea>
+            <textarea @input="type()" v-model="category_raw" type="text"
+                :placeholder="'Category:\nChiến thuật\nMột người chơi\nNgoại tuyến\nHành động'" :rows="6"></textarea>
             <input v-model="size" placeholder="Size, I.E: 49.56, 458.45">
             <form action="" @submit.prevent="addApp()">
                 <input v-model="down_url" placeholder="Download URL">
