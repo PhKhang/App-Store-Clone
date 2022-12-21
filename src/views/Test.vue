@@ -1,6 +1,8 @@
 <template>
-    <h1>{{ app.name }}</h1>
-    <img :src="app.icon_url" alt="" referrerpolicy="no-referrer">
+    <div class="app-info">
+        <img :src="app.icon_url" alt="" referrerpolicy="no-referrer">
+        <h1>{{ app.name }}</h1>
+    </div>
 
     <!-- Set up a container element for the button -->
     <div id="paypal-button-container"></div>
