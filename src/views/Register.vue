@@ -29,7 +29,7 @@ export default {
         const password = ref(null);
         const confirmPassword = ref(null);
         const errorMsg = ref(null);
-        const name = ref('khang')
+        const name = ref('null')
 
         // Register function
         const register = async () => {
@@ -150,9 +150,7 @@ export default {
             <form @submit.prevent="register">
                 <h1>Hello</h1>
                 <h2>and welcome to our store</h2>
-                <div class="name">
-                    <input type="name" required id="name" v-model="name" :placeholder="' \uf007  Your name?'" />
-                </div>
+
                 <div class="email">
                     <input type="text" required id="email" v-model="email" :placeholder="'\uf1d8  ...email?'" />
                 </div>
