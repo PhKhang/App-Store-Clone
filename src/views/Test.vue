@@ -2,27 +2,58 @@
     <div class="app-info">
         <img :src="app.icon_url" alt="" referrerpolicy="no-referrer">
         <h1>{{ app.name }}</h1>
+
+
+        <div class="info" style="padding-top: 40px;">
+            <h2>Payment invoice:</h2>
+            <p>{{ app.price }}₫</p>
+        </div>
+
+        <div class="info">
+            <h2>For:</h2>
+            <p>{{ user.username }}</p>
+        </div>
+
+        <div class="info">
+            <h2>Pay with:</h2>
+        </div>
+
     </div>
 
-    <!-- Set up a container element for the button -->
-    <div id="paypal-button-container"></div>
+    <div class="payment app-info">
+        <!-- Set up a container element for the button -->
+        <div id="paypal-button-container"></div>
 
-    <div id="screen-initial">
-        <h1 id="msg">Loading...</h1>
-        <progress id="load-progress" value="0" max="100"></progress>
-    </div>
+        <div class="sep">
+            <div class="line"></div>
+            <div class="or">or</div>
+        </div>
 
-    <div id="screen-start" class="hidden">
-        <a href="#" id="start-scan">Start scan</a>
-    </div>
+        <div class="scanner">
+            <div class="card">
+                <h3 class="brand"></h3>
 
-    <div id="screen-scanning" class="hidden">
-        <video id="camera-feed" playsinline></video>
-        <!-- Recognition events will be drawn here. -->
-        <canvas id="camera-feedback"></canvas>
-        <p id="camera-guides">
-            Point the camera towards Payment cards
-        </p>
+                <p class="number"></p>
+                <h3 class="name"></h3>
+            </div>
+
+
+            <div id="screen-initial">
+                <h1 id="msg">Loading...</h1>
+                <progress id="load-progress" value="0" max="100"></progress>
+            </div>
+            <div id="screen-start" class="hidden">
+                <a href="#" id="start-scan">Start scan</a>
+            </div>
+            <div id="screen-scanning" class="hidden">
+                <video id="camera-feed" playsinline></video>
+                <!-- Recognition events will be drawn here. -->
+                <canvas id="camera-feedback"></canvas>
+                <p id="camera-guides">
+                    Point the camera towards Payment cards
+                </p>
+            </div>
+        </div>
     </div>
 
 
@@ -64,7 +95,9 @@ export default {
     },
     data() {
         return {
-            app
+            app: '',
+            user: '',
+            cardinfo: ''
         }
     },
     methods: {
@@ -86,10 +119,23 @@ export default {
                 .contains('category', ['Ngoại tuyến'])
 
             console.log(data)
-        }
+        },
+
+        async load() {
+            // console.log(this.data, 'ihgihgih')
+            const { data: { user } } = await supabase.auth.getUser();
+
+            let { data: profile, error } = await supabase
+                .from('profiles')
+                .select('*')
+                .eq('id', user.id)
+
+            this.user = profile[0]
+        },
     },
     mounted() {
         this.match(this.$route.params.id);
+        this.load();
 
 
 
@@ -209,6 +255,7 @@ export default {
                 if (blinkCardResult.state !== BlinkCardSDK.RecognizerResultState.Empty) {
                     console.log("BlinkCard results", blinkCardResult);
 
+                    this.cardinfo = blinkCardResult;
                     const firstAndLastName = blinkCardResult.owner;
                     const cardNumber = blinkCardResult.cardNumber;
                     const dateOfExpiry = {
@@ -359,7 +406,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 * {
     box-sizing: border-box;
 }
@@ -439,5 +486,73 @@ textarea {
 /* Auxiliary classes */
 .hidden {
     display: none !important;
+}
+
+.app-info {
+    width: 100%;
+    max-width: 800px;
+    margin: auto;
+
+}
+
+.info {
+    width: 100%;
+    max-width: 800px;
+    height: min-content;
+    margin: auto;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &>* {
+        margin: 0;
+        padding: 0;
+    }
+
+}
+
+.payment>* {
+    padding: 10px;
+}
+
+.payment {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 10fr 1fr 10fr;
+
+    padding: 0;
+
+    .sep {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .line {
+            position: relative;
+
+            width: 0px;
+            height: 100%;
+
+            border: 2px #eaeaea solid;
+        }
+
+        .or {
+            position: absolute;
+            color: #BABABA;
+            font-weight: 600;
+            background-color: white;
+        }
+    }
+
+}
+
+
+.card {
+    width: 100%;
+    max-width: 600px;
+    aspect-ratio: 1.7/1;
+    background: linear-gradient(90deg, #DAE6E2 0%, #55F0BC 100%);
+    border-radius: 14px;
 }
 </style>

@@ -31,6 +31,7 @@ export default {
             if (this.searchQuery == '') {
                 this.load = false
             }
+
             console.log('loading to ', this.load)
             console.log(this.searchQuery)
 
@@ -43,9 +44,7 @@ export default {
                 })
 
             this.load = false
-            console.log('loading to ', this.load)
             this.data = Apps
-            console.log('result: ', this.searchQuery, Apps)
         },
 
         kiem() {
@@ -78,13 +77,19 @@ export default {
 
         <div class="search-under" v-if="(data.length > 0 || load == true) && searchQuery != ''">
             <div class="back" v-if="data.length > 0 || load"></div>
+
             <p class="load" v-if="kiem()">Loading...</p>
+
             <div v-else class="results">
                 <router-link class="result" v-for="(app) in data" :key="app.id" :to="'/app/' + app.id">
+
                     <img class="icon" :src="app.icon_url" alt="" referrerpolicy="no-referrer">
                     <p>{{ app.name }}</p>
+
                 </router-link>
             </div>
+
+
         </div>
     </div>
 

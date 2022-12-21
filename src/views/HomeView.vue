@@ -101,7 +101,6 @@ export default {
 			}
 		},
 		async onClickCategory(e) {
-			console.log("Current Category: ", e.target.id);
 
 			const { data, error } = await supabase
 				.from('Apps')
@@ -169,15 +168,20 @@ export default {
 
 		<div class="app-cat" :class="{ cathidden: appDataCat.length == 0 }">
 			<h1 v-if="appDataCat.length != 0">{{ category }}</h1>
+
 			<div class="app-con">
 				<div class="app" v-for="(app) in appDataCat" :key="app.id" :id="app.id" @click="onInput"
 					:class="{ edit: atId == app.id }">
+
 					<router-link :to="'/app/' + app.id">
 						<img :src="app.icon_url" alt="" class="app-icon" referrerpolicy="no-referrer">
 					</router-link>
 					<h2>{{ app.name }}</h2>
+
 				</div>
 			</div>
+
+
 		</div>
 
 
@@ -186,10 +190,13 @@ export default {
 		<div class="app-con">
 			<div class="app" v-for="(app) in appData.filter(app => color.includes(app.id))" :key="app.id" :id="app.id"
 				@click="onInput" :class="{ edit: atId == app.id }">
+
 				<router-link :to="'/app/' + app.id">
 					<img :src="app.icon_url" alt="" class="app-icon" referrerpolicy="no-referrer">
 				</router-link>
 				<h2>{{ app.name }}</h2>
+
+
 			</div>
 		</div>
 
@@ -198,10 +205,13 @@ export default {
 		<div class="app-con">
 			<div class="app" v-for="(app) in appData.filter(app => puzzle.includes(app.id))" :key="app.id" :id="app.id"
 				@click="onInput" :class="{ edit: atId == app.id }">
+
 				<router-link :to="'/app/' + app.id">
 					<img :src="app.icon_url" alt="" class="app-icon" referrerpolicy="no-referrer">
 				</router-link>
 				<h2>{{ app.name }}</h2>
+
+
 			</div>
 		</div>
 
@@ -210,10 +220,12 @@ export default {
 		<div class="app-con">
 			<div class="app" v-for="(app) in appData.filter(app => offline.includes(app.id))" :key="app.id" :id="app.id"
 				@click="onInput" :class="{ edit: atId == app.id }">
+
 				<router-link :to="'/app/' + app.id">
 					<img :src="app.icon_url" alt="" class="app-icon" referrerpolicy="no-referrer">
 				</router-link>
 				<h2>{{ app.name }}</h2>
+
 			</div>
 		</div>
 

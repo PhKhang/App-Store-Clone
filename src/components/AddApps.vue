@@ -1,4 +1,5 @@
 <script>
+import { thisExpression } from '@babel/types'
 import { supabase } from '../supabase'
 
 export default {
@@ -18,6 +19,7 @@ export default {
             header_url: '',
             rating: '',
             author: '',
+            price: null,
             des: '',
             size: '',
             down_url: '',
@@ -103,6 +105,7 @@ export default {
                             header_url: this.header_url,
                             rating: this.rating,
                             author: this.author,
+                            price: this.price,
                             des: this.des,
                             size: this.size,
                             down_url: this.down_url,
@@ -135,6 +138,7 @@ export default {
                             header_url: this.header_url,
                             rating: this.rating,
                             author: this.author,
+                            price: this.price,
                             des: this.des,
                             size: this.size,
                             down_url: this.down_url,
@@ -179,6 +183,7 @@ export default {
             this.rating = this.app.rating;
             this.author = this.app.author;
             this.des = this.app.des;
+            this.price = this.app.price;
             this.size = this.app.size;
             this.down_url = this.app.down_url;
             this.app.screens ? this.screen_raw = this.app.screens.join('\r\n') : this.screen_raw = '';
@@ -205,6 +210,7 @@ export default {
             <input v-model="header_url" placeholder="Header's URL">
             <input v-model="rating" placeholder="App rating, I.E: 4.7, 3.8">
             <input v-model="author" placeholder="Author">
+            <input v-model="price" placeholder="Price (in VND)">
             <textarea v-model="des" type="text" placeholder="App description"></textarea>
             <textarea @input="type()" v-model="screen_raw" type="text"
                 :placeholder="'Screenshots URLs: \nyoutube.com \nm.me'" :rows="6"></textarea>
@@ -225,6 +231,7 @@ export default {
             <p><span>Header URL:</span> {{ header_url }}</p>
             <p><span>Rating:</span> {{ rating }}</p>
             <p><span>Author:</span> {{ author }}</p>
+            <p><span>Price:</span> {{ author }}đ</p>
             <p><span>Description:<br></span></p>
             <p style="white-space: pre-wrap">{{ des }}</p>
             <p><span>Screenshots:<br></span></p>
