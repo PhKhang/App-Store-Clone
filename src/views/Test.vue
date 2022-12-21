@@ -409,7 +409,7 @@ export default {
         main();
 
 
-        this.cardinfo = blinkCardResult;
+        (blinkCardResult == null) ? this.cardinfo = null : this.cardinfo = blinkCardResult;
     }
 }
 </script>
