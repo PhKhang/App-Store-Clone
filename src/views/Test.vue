@@ -264,7 +264,6 @@ export default {
                 if (blinkCardResult.state !== BlinkCardSDK.RecognizerResultState.Empty) {
                     console.log("BlinkCard results", blinkCardResult);
 
-                    this.cardinfo = blinkCardResult;
                     const firstAndLastName = blinkCardResult.owner;
                     const cardNumber = blinkCardResult.cardNumber;
                     const dateOfExpiry = {
