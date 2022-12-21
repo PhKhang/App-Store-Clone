@@ -88,13 +88,13 @@ export default {
         async load() {
             // console.log(this.data, 'ihgihgih')
             const { data: { user } } = await supabase.auth.getUser();
-            console.log(user.id, 'this is the user data')
 
             let { data: profile, error } = await supabase
                 .from('profiles')
                 .select('*')
                 .eq('id', user.id)
 
+            console.log(user.id, 'this is the user data')
             this.id = user.id
             this.user = profile[0]
             this.name = profile[0].username
