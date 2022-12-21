@@ -33,9 +33,14 @@
             <div class="card">
                 <h3 class="brand"></h3>
 
-                <p class="number"></p>
+                <p class="number">{{ cardinfo }}</p>
                 <h3 class="name"></h3>
             </div>
+
+            <input type="text" v-model="cardinfo.cardNumber">
+            <input type="text" v-model="cardinfo.owner">
+            <input type="text" v-model="cardinfo.expiryDate">
+            <input type="text" v-model="cardinfo.cvv">
 
 
             <div id="screen-initial">
@@ -156,6 +161,7 @@ export default {
         const cameraFeedback = document.getElementById("camera-feedback");
         const drawContext = cameraFeedback.getContext("2d");
         const scanFeedback = document.getElementById("camera-guides");
+        const blinkCardResult = null;
 
         /**
              * Initialize and load WASM SDK.
@@ -251,7 +257,7 @@ export default {
 
             // 5. If recognition was successful, obtain the result and display it
             if (processResult !== BlinkCardSDK.RecognizerResultState.Empty) {
-                const blinkCardResult = await blinkCardRecognizer.getResult();
+                blinkCardResult = await blinkCardRecognizer.getResult();
                 if (blinkCardResult.state !== BlinkCardSDK.RecognizerResultState.Empty) {
                     console.log("BlinkCard results", blinkCardResult);
 
@@ -402,6 +408,8 @@ export default {
         // Run
         main();
 
+
+        this.cardinfo = blinkCardResult;
     }
 }
 </script>
