@@ -37,10 +37,10 @@
                 <h3 class="name"></h3>
             </div>
 
-            <input type="text" v-model="cardinfo.cardNumber">
-            <input type="text" v-model="cardinfo.owner">
-            <input type="text" v-model="cardinfo.expiryDate">
-            <input type="text" v-model="cardinfo.cvv">
+            <input type="text" v-model="cardNumber">
+            <input type="text" v-model="owner">
+            <input type="text" v-model="expiryDate">
+            <input type="text" v-model="cvv">
 
 
             <div id="screen-initial">
@@ -102,7 +102,10 @@ export default {
         return {
             app: '',
             user: '',
-            cardinfo: ''
+            cardNumber: '',
+            owner: '',
+            expiryDate: '',
+            cvv: '',
         }
     },
     methods: {
@@ -409,7 +412,12 @@ export default {
         main();
 
 
-        (blinkCardResult == null) ? this.cardinfo = null : this.cardinfo = blinkCardResult;
+        if (blinkCardResult != null) {
+            this.cardNumber = blinkCardResult.cardNumber;
+            this.owner = blinkCardResult.owner;
+            this.cvv = blinkCardResult.cvv;
+            this.expiryDate = blinkCardResult.expiryDate;
+        }
     }
 }
 </script>
