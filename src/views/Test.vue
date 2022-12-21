@@ -164,7 +164,7 @@ export default {
         const cameraFeedback = document.getElementById("camera-feedback");
         const drawContext = cameraFeedback.getContext("2d");
         const scanFeedback = document.getElementById("camera-guides");
-        const blinkCardResult = null;
+        var blinkCardResult = null;
 
         /**
              * Initialize and load WASM SDK.
