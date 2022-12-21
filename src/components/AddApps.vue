@@ -181,8 +181,8 @@ export default {
             this.des = this.app.des;
             this.size = this.app.size;
             this.down_url = this.app.down_url;
-            this.screen_raw = this.app.screens.join('\r\n');
-            this.category_raw = this.app.category.join('\r\n');
+            this.app.screens ? this.screen_raw = this.app.screens.join('\r\n') : this.screen_raw = '';
+            this.app.category ? this.category_raw = this.app.category.join('\r\n') : this.category_raw = '';
             this.type()
         }
     },
@@ -234,7 +234,7 @@ export default {
                 </div>
             </div>
             <p><span>Size:</span> {{ size }}<span>MB</span></p>
-            <p><span>Download URL:</span> {{ down_url }}</p>
+            <p><span>Download URL:</span> <a :href="down_url">{{ down_url }}</a></p>
         </div>
 
     </div>

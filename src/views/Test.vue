@@ -23,6 +23,8 @@
         </p>
     </div>
 
+
+
 </template>
 
 <script>
@@ -74,9 +76,19 @@ export default {
             console.log(matchid)
 
         },
+
+        async doSomething() {
+            const { data, error } = await supabase
+                .from('Apps')
+                .select()
+                .contains('category', ['Ngoại tuyến'])
+
+            console.log(data)
+        }
     },
     mounted() {
         this.match(this.$route.params.id);
+        this.doSomething();
 
 
 

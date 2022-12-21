@@ -17,11 +17,12 @@ export default {
 		appData: {
 			default: [{}],
 			type: Object
-		}
+		},
 	},
 	data() {
 		return {
 			page_title: 'home',
+			appDataCat: [],
 			posts: [],
 			data: [],
 			dataUsers: [],
@@ -98,6 +99,17 @@ export default {
 				console.log(this.app)
 			}
 		},
+		async onClickCategory(e) {
+			console.log("Current Category: ", e.target.id);
+
+			const { data, error } = await supabase
+				.from('Apps')
+				.select()
+				.contains('category', [e.target.id])
+
+			console.log(data)
+			this.appDataCat = data
+		},
 
 		switchState() {
 			this.isFix = !this.isFix
@@ -139,19 +151,30 @@ export default {
 		<div class="category-con">
 			<div class="category-inner-con">
 				<div class="category">
-					<h2 class="name">Hành động</h2>
+					<h2 @click="onClickCategory($event)" id="Hành động" class="name">Hành động</h2>
 				</div>
 				<div class="category">
-					<h2 class="name">Chiến thuật</h2>
+					<h2 @click="onClickCategory($event)" id="Chiến thuật" class="name">Chiến thuật</h2>
 				</div>
 				<div class="category">
-					<h2 class="name">Đóng vai</h2>
+					<h2 @click="onClickCategory($event)" id="Đóng vai" class="name">Đóng vai</h2>
 				</div>
 				<div class="category">
-					<h2 class="name">Thư giãn</h2>
+					<h2 @click="onClickCategory($event)" id="Thư giãn" class="name">Thư giãn</h2>
 				</div>
 			</div>
 		</div>
+
+		<div class="app-cat app-con" v-if="appDataCat.length != 0">
+			<div class="app" v-for="(app) in appDataCat" :key="app.id" :id="app.id" @click="onInput"
+				:class="{ edit: atId == app.id }">
+				<router-link :to="'/app/' + app.id">
+					<img :src="app.icon_url" alt="" class="app-icon" referrerpolicy="no-referrer">
+				</router-link>
+				<h2>{{ app.name }}</h2>
+			</div>
+		</div>
+
 
 		<h1>Một tí <span class="colorful">màu sắc</span> cho đời bớt nhạt</h1>
 		<p>Với những game đầy màu sắc như...</p>
@@ -249,6 +272,8 @@ p {
 
 				font-size: 40px;
 				color: white;
+
+				cursor: pointer;
 			}
 		}
 
