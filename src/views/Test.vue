@@ -88,7 +88,6 @@ export default {
     },
     mounted() {
         this.match(this.$route.params.id);
-        this.doSomething();
 
 
 

@@ -23,6 +23,7 @@ export default {
 		return {
 			page_title: 'home',
 			appDataCat: [],
+			category: '',
 			posts: [],
 			data: [],
 			dataUsers: [],
@@ -109,6 +110,7 @@ export default {
 
 			console.log(data)
 			this.appDataCat = data
+			this.category = e.target.id
 		},
 
 		switchState() {
@@ -165,13 +167,16 @@ export default {
 			</div>
 		</div>
 
-		<div class="app-cat app-con" v-if="appDataCat.length != 0">
-			<div class="app" v-for="(app) in appDataCat" :key="app.id" :id="app.id" @click="onInput"
-				:class="{ edit: atId == app.id }">
-				<router-link :to="'/app/' + app.id">
-					<img :src="app.icon_url" alt="" class="app-icon" referrerpolicy="no-referrer">
-				</router-link>
-				<h2>{{ app.name }}</h2>
+		<div class="app-cat" :class="{ cathidden: appDataCat.length == 0 }">
+			<h1 v-if="appDataCat.length != 0">{{ category }}</h1>
+			<div class="app-con">
+				<div class="app" v-for="(app) in appDataCat" :key="app.id" :id="app.id" @click="onInput"
+					:class="{ edit: atId == app.id }">
+					<router-link :to="'/app/' + app.id">
+						<img :src="app.icon_url" alt="" class="app-icon" referrerpolicy="no-referrer">
+					</router-link>
+					<h2>{{ app.name }}</h2>
+				</div>
 			</div>
 		</div>
 
@@ -324,6 +329,15 @@ p {
 	-webkit-text-fill-color: transparent;
 }
 
+.app-cat {
+	max-height: 1000px;
+	overflow-y: hidden;
+	transition: all .6s ease;
+}
+
+.cathidden {
+	max-height: 0px;
+}
 
 .app-con {
 	padding-left: 5px;
