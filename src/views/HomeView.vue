@@ -243,7 +243,7 @@ export default {
 
 
 
-		<AddApp @load="$emit('load')" :opt="isFix ? 1 : 0" :id="atId" :app="app"></AddApp>
+		<!-- <AddApp @load="$emit('load')" :opt="isFix ? 1 : 0" :id="atId" :app="app"></AddApp> -->
 	</div>
 </template>
 
