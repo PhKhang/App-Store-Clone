@@ -4,6 +4,7 @@
 import { supabase } from '../supabase'
 import Nav from '@/components/Nav.vue'
 import Vibrant from 'node-vibrant'
+import Rating from 'primevue/rating';
 
 // let des = document.querySelector(".des").scrollHeight > document.querySelector(".des").clientHeight;
 
@@ -11,7 +12,8 @@ import Vibrant from 'node-vibrant'
 export default {
     name: 'app',
     components: {
-        Nav
+        Nav,
+        Rating
     },
     props: {
         appData: Object
@@ -19,6 +21,7 @@ export default {
     data() {
         return {
             page_title: 'Blog',
+            commentName: [],
             isOverflow: 0,
             posts: [],
             data: [],
@@ -26,7 +29,15 @@ export default {
             comment_con: '',
             app: [1],
             comments: [],
-            palette: {}
+            palette: {},
+            val: '0',
+            id: '',
+            user: '',
+            name: '',
+            bio: '',
+            fb: '',
+            ig: '',
+            twt: '',
         }
     },
     computed: {
@@ -89,6 +100,32 @@ export default {
 
             this.carousel()
         },
+
+        async loadUserInfo() {
+            // console.log(this.data, 'ihgihgih')
+            const { data: { user } } = await supabase.auth.getUser();
+
+            if (user == null) {
+                return
+            }
+
+            let { data: profile, error } = await supabase
+                .from('profiles')
+                .select('*')
+                .eq('id', user.id)
+
+
+            console.log(user.id, 'this is the user data')
+            this.id = user.id
+            this.user = profile[0]
+            this.name = profile[0].username
+            this.bio = profile[0].bio
+            this.fb = profile[0].fb
+            this.ig = profile[0].ig
+            this.twt = profile[0].twt
+
+            console.log(profile, 'this is the user profile')
+        },
         async update() {
             const { data, error } = await supabase
                 .from('Apps')
@@ -137,20 +174,53 @@ export default {
             console.log(Reviews)
         },
 
-        async addReviews(id, name, content) {
-            console.log({ id, name, content })
+        async addReviews(id, by, content, name) {
+            console.log({ id, name: by, content })
             let { data: Reviews, error } = await supabase
                 .from('Reviews')
                 .insert([
                     {
                         for_id: id,
-                        name: name,
+                        by: by,
                         content: content,
+                        name: name
                     }
                 ])
 
-            console.log({ id, name, content })
+            console.log({ id, name: by, content })
+
+            this.updateReviews(this.$route.params.id);
+
         },
+
+        async getName(id) {
+            let { data: profile, error } = await supabase
+                .from('profiles')
+                .select('*')
+                .eq('id', id)
+
+            console.log(profile)
+            return profile
+        },
+        async searchUserName(id, oldname) {
+            // console.log(this.data, 'ihgihgih')
+
+            console.log("before await")
+            const profile = await this.getName(id)
+            console.log("after await")
+
+            if (profile != null) {
+                console.log("user name", profile[0].username)
+                this.commentName.unshift(profile[0].username)
+                return
+            }
+            else {
+                console.log("old name")
+                this.commentName.unshift(oldname)
+                return
+            }
+        },
+
 
         onInput(e) {
             this.text = e.target.value
@@ -204,6 +274,7 @@ export default {
     created() {
         this.match(this.$route.params.id);
         this.updateReviews(this.$route.params.id);
+        this.loadUserInfo();
 
 
 
@@ -234,6 +305,8 @@ export default {
                 referrerpolicy="no-referrer">
             <h1>{{ app[0].name }}</h1>
             <h4>{{ app[0].author }}</h4>
+
+            <Rating v-model="app[0].rating" :cancel="false" readonly />
             <a :href="app[0].down_url" class="down-link">
                 <svg width="33" height="33" viewBox="0 0 33 33" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
@@ -267,16 +340,19 @@ export default {
 
 
         <!-- Nhap ten va review cua nguoi dung -->
-        <input :value="text" @input="onInput" placeholder="Type here">
-        <form action="" @submit.prevent="addReviews($route.params.id, text, comment_con)">
-            <input :value="comment_con" @input="onInputCon" placeholder="Your review here">
+        <form v-if="user" action="" @submit.prevent="addReviews($route.params.id, user.id, comment_con, name)">
+            <div class="them-com">
+                <!-- <input :value="text" @input="onInput" placeholder="Type here"> -->
+                <h3><span>Thêm bình luận với tên: </span>{{ name }}</h3>
+
+                <Rating v-model="val" />
+                <textarea :value="comment_con" @input="onInputCon" placeholder="Your review here"></textarea>
+                <button type="submit">
+                    Thêm bình luận
+                </button>
+            </div>
         </form>
-
-
-
-        <!-- Hien thi ten va review nguoi dung truoc khi gui len database -->
-        <p>Name: {{ text }}</p>
-        <p>Review: {{ comment_con }}</p>
+        <h3 v-else>Vui lòng đăng nhặp để sử dụng chức năng bình luận</h3>
 
 
 
@@ -285,6 +361,8 @@ export default {
             <div class="comment" v-for="(Review, index) in comments" :key="index">
                 <h3>{{ Review.name }}</h3>
                 <p>{{ Review.content }}</p>
+                <Rating v-model="Review.rating" :cancel="false" readonly />
+
             </div>
         </div>
 
@@ -435,7 +513,6 @@ export default {
 
 
 .screen-con {
-    margin-top: 100px;
     width: 100%;
 
     display: flex;
@@ -518,5 +595,48 @@ export default {
         }
     }
 
+}
+
+.them-com {
+    border: 2px solid #b2b2b2;
+    border-radius: 10px;
+    padding: 10px;
+
+    span {
+        font-weight: 400;
+    }
+
+    textarea {
+        border: 2px solid #b2b2b2;
+        border-radius: 8px;
+        padding: 10px;
+        margin: 0;
+        margin-top: 5px;
+    }
+
+    button {
+        background-color: v-bind(lightvi);
+        border: none;
+        border-radius: 4px;
+
+        margin: 4px;
+        font-weight: 500;
+    }
+}
+
+:deep(.p-rating-icon) {
+    color: v-bind(lightvi) !important;
+}
+
+.comment {
+    border: 2px solid #b2b2b2;
+    border-radius: 10px;
+    padding: 10px;
+    margin-top: 10px;
+
+    h3 {
+        margin-top: 0;
+        margin-bottom: 5px;
+    }
 }
 </style>

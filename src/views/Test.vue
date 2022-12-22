@@ -31,16 +31,18 @@
 
         <div class="scanner">
             <div class="card">
-                <h3 class="brand"></h3>
+                <h3 class="brand">{{ brand }}</h3>
 
-                <p class="number">{{ cardinfo }}</p>
-                <h3 class="name"></h3>
+                <p class="number">{{ cardNumber }}</p>
+                <h3 class="name">{{ owner }}</h3>
             </div>
 
-            <input type="text" v-model="cardNumber">
-            <input type="text" v-model="owner">
-            <input type="text" v-model="expiryDate">
-            <input type="text" v-model="cvv">
+            <form action="" @submit.prevent="buy()">
+                <input type="text" v-model="cardNumber" placeholder="Card number">
+                <input type="text" v-model="owner" placeholder="Owner's name">
+                <input type="text" v-model="expiryDate" placeholder="Expiration">
+                <input type="text" v-model="cvv" placeholder="CVV">
+            </form>
 
 
             <div id="screen-initial">
@@ -102,10 +104,11 @@ export default {
         return {
             app: '',
             user: '',
-            cardNumber: '',
-            owner: '',
+            cardNumber: '4242424242424242',
+            owner: 'TRAN NGUYEN PHUC KHANG',
             expiryDate: '',
             cvv: '',
+            brand: 'Agribank'
         }
     },
     methods: {
@@ -417,6 +420,13 @@ export default {
             this.cvv = blinkCardResult.cvv;
             this.expiryDate = blinkCardResult.expiryDate;
         }
+        else {
+            this.cardNumber = "4565456821355";
+            this.owner = "TRANG MINH HUU PHUC";
+            this.cvv = "422";
+            this.expiryDate = 'NOW';
+        }
+
     }
 }
 </script>
@@ -564,10 +574,31 @@ textarea {
 
 
 .card {
+    position: relative;
+
     width: 100%;
     max-width: 600px;
     aspect-ratio: 1.7/1;
     background: linear-gradient(90deg, #DAE6E2 0%, #55F0BC 100%);
     border-radius: 14px;
+    padding: 4%;
+
+    .brand {
+        position: relative;
+        top: 0;
+        left: 0;
+    }
+
+    .number {
+        position: relative;
+        bottom: 1ch;
+        left: 0;
+    }
+
+    .name {
+        position: relative;
+        bottom: 0;
+        left: 0;
+    }
 }
 </style>
