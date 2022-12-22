@@ -216,6 +216,7 @@ export default {
                         console.error("Failed to load SDK!", error);
                     }
                 );
+
         }
 
         /**
@@ -273,7 +274,18 @@ export default {
                         year: blinkCardResult.expiryDate.year,
                         month: blinkCardResult.expiryDate.month
                     }
-
+                    if (blinkCardResult != null) {
+                        this.cardNumber = blinkCardResult.cardNumber;
+                        this.owner = blinkCardResult.owner;
+                        this.cvv = blinkCardResult.cvv;
+                        this.expiryDate = blinkCardResult.expiryDate;
+                    }
+                    else {
+                        this.cardNumber = "4565456821355";
+                        this.owner = "TRANG MINH HUU PHUC";
+                        this.cvv = "422";
+                        this.expiryDate = 'NOW';
+                    }
                     alert
                         (
                             `Hello, ${firstAndLastName}!\n Your payment card with card number ${cardNumber} will expire on ${dateOfExpiry.year}/${dateOfExpiry.month}.`
@@ -414,18 +426,7 @@ export default {
         main();
 
 
-        if (blinkCardResult != null) {
-            this.cardNumber = blinkCardResult.cardNumber;
-            this.owner = blinkCardResult.owner;
-            this.cvv = blinkCardResult.cvv;
-            this.expiryDate = blinkCardResult.expiryDate;
-        }
-        else {
-            this.cardNumber = "4565456821355";
-            this.owner = "TRANG MINH HUU PHUC";
-            this.cvv = "422";
-            this.expiryDate = 'NOW';
-        }
+
 
     }
 }
