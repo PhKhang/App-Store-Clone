@@ -27,7 +27,7 @@ export default {
             data: [],
             text: '',
             comment_con: '',
-            app: [1],
+            app: [],
             comments: [],
             palette: {},
             game: [],
@@ -316,11 +316,8 @@ export default {
             <h4>{{ app[0].author }}</h4>
 
             <Rating v-model="app[0].rating" :cancel="false" readonly />
-            <a v-if="!(game.includes(app[0].id)) && app[0].price != null"
-                :href="'https://apphome.vercel.app/' + 'buy/' + app[0].id" class="down-link">
-                <h3>BUY</h3>
-            </a>
-            <a v-else :href="app[0].down_url" class="down-link">
+
+            <a :href="app[0].down_url" class="down-link">
                 <svg width="33" height="33" viewBox="0 0 33 33" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
                         d="M2 23.75V25.5625C2 28.5656 4.43446 31 7.4375 31H25.5625C28.5656 31 31 28.5656 31 25.5625V23.75M23.75 16.5L16.5 23.75M16.5 23.75L9.25 16.5M16.5 23.75V2"

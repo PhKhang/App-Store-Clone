@@ -58,7 +58,10 @@
 
             </button>
 
-            <h3>Id: {{ user.id }}</h3>
+            <h3>Ứng dụng đã mua</h3>
+            <div class="app" v-for="(app) in game" :key="app.id">
+                <a :href="'https://apphome.vercel.app/' + 'app/' + app"></a>
+            </div>
         </div>
 
 
@@ -89,6 +92,7 @@ export default {
             fb: '',
             ig: '',
             twt: '',
+            game: [],
             edit: true
         }
     },
@@ -110,6 +114,8 @@ export default {
             this.fb = profile[0].fb
             this.ig = profile[0].ig
             this.twt = profile[0].twt
+            this.game = profile[0].bought
+            console.log(this.game)
 
             console.log(profile, 'this is the user profile')
         },
