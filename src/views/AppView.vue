@@ -30,6 +30,7 @@ export default {
             app: [1],
             comments: [],
             palette: {},
+            game: [],
             val: '0',
             id: '',
             user: '',
@@ -123,8 +124,12 @@ export default {
             this.fb = profile[0].fb
             this.ig = profile[0].ig
             this.twt = profile[0].twt
+            this.game = profile.bought
 
-            console.log(profile, 'this is the user profile')
+            console.log(this.user, 'this is the user profile')
+        },
+        getGame(games) {
+            console.log(games)
         },
         async update() {
             const { data, error } = await supabase
@@ -205,6 +210,7 @@ export default {
             console.log(profile)
             return profile
         },
+
         async searchUserName(id, oldname) {
             // console.log(this.data, 'ihgihgih')
 
@@ -279,7 +285,7 @@ export default {
         this.updateReviews(this.$route.params.id);
         this.loadUserInfo();
 
-
+        console.log()
 
     },
     mounted() {
@@ -310,13 +316,18 @@ export default {
             <h4>{{ app[0].author }}</h4>
 
             <Rating v-model="app[0].rating" :cancel="false" readonly />
-            <a :href="app[0].down_url" class="down-link">
+            <a v-if="!(game.includes(app[0].id)) && app[0].price != null"
+                :href="'https://apphome.vercel.app/' + 'buy/' + app[0].id" class="down-link">
+                <h3>BUY</h3>
+            </a>
+            <a v-else :href="app[0].down_url" class="down-link">
                 <svg width="33" height="33" viewBox="0 0 33 33" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
                         d="M2 23.75V25.5625C2 28.5656 4.43446 31 7.4375 31H25.5625C28.5656 31 31 28.5656 31 25.5625V23.75M23.75 16.5L16.5 23.75M16.5 23.75L9.25 16.5M16.5 23.75V2"
                         :stroke=darkvi stroke-width="3.625" stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
             </a>
+
         </div>
     </div>
 

@@ -40,9 +40,15 @@
             <form action="" @submit.prevent="buy()">
                 <input id="cardNumber" type="text" v-model="cardNumber" placeholder="Card number">
                 <input id="owner" type="text" v-model="owner" placeholder="Owner's name">
-                <input id="expiryDate" type="text" v-model="expiryDate" placeholder="Expiration">
+                <input id="expiryMonth" type="text" v-model="expiryMonth" placeholder="Expiration">
+                <input id="expiryYear" type="text" v-model="expiryYear" placeholder="Expiration">
                 <input id="cvv" type="text" v-model="cvv" placeholder="CVV">
+                <button type="submit">
+                    Confirm
+                </button>
             </form>
+
+
 
 
             <div id="screen-initial">
@@ -110,11 +116,12 @@ export default {
         return {
             app: '',
             user: '',
-            cardNumber: '4242424242424242',
-            owner: 'TRAN NGUYEN PHUC KHANG',
-            expiryDate: '',
+            cardNumber: '',
+            owner: '',
+            expiryMonth: '',
+            expiryYear: '',
             cvv: '',
-            brand: 'Agribank'
+            brand: ''
         }
     },
     methods: {
@@ -278,7 +285,8 @@ export default {
 
                         document.getElementById("cardNumber").value = blinkCardResult.cardNumber;
                         document.getElementById("owner").value = blinkCardResult.owner;
-                        document.getElementById("expiryDate").value = blinkCardResult.year;
+                        document.getElementById("expiryMonth").value = blinkCardResult.expiryDate.month;
+                        document.getElementById("expiryYear").value = blinkCardResult.expiryDate.year;
                         document.getElementById("cvv").value = blinkCardResult.cvv;
 
                         alert
@@ -439,7 +447,64 @@ export default {
             test();
 
             console.log(so, "whiwghiwhiughriuhirhuhgi")
-        }
+        },
+
+        async buy() {
+            // console.log(this.data, 'ihgihgih')
+            console.log("clickex         jgihgihgihighi")
+            const { data: { user } } = await supabase.auth.getUser();
+
+            if (user == null) {
+                return
+            }
+
+            let { data: profile } = await supabase
+                .from('profiles')
+                .select('*')
+                .eq('id', user.id)
+
+
+            var bought
+            if (profile[0].bought == null) {
+                bought = [];
+            }
+            else {
+                bought = profile[0].bought;
+            }
+            console.log(bought, 'all bought games')
+            bought.push(this.app.id)
+            console.log(bought, 'after update')
+
+
+            let { data: Profiles, error } = await supabase
+                .from('profiles')
+                .update([
+                    {
+                        bought: bought
+                    }
+                ])
+                .eq("id", user.id)
+
+
+            console.log(profile, 'this is the user profile')
+        },
+
+        async updateInfo() {
+            this.edit = false
+            let { data: Profiles, error } = await supabase
+                .from('profiles')
+                .update([
+                    {
+                        username: this.name,
+                        bio: this.bio,
+                        fb: this.fb,
+                        ig: this.ig,
+                        twt: this.twt,
+                    }
+                ])
+                .eq("id", this.id)
+            this.load()
+        },
 
     },
     mounted() {
