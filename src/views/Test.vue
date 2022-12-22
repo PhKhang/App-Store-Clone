@@ -601,4 +601,11 @@ textarea {
         left: 0;
     }
 }
+
+@media screen and (max-width: 820px) {
+    .payment {
+        display: flex;
+        flex-direction: column;
+    }
+}
 </style>
