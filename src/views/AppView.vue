@@ -174,7 +174,7 @@ export default {
             console.log(Reviews)
         },
 
-        async addReviews(id, by, content, name) {
+        async addReviews(id, by, content, name, val) {
             console.log({ id, name: by, content })
             let { data: Reviews, error } = await supabase
                 .from('Reviews')
@@ -183,11 +183,14 @@ export default {
                         for_id: id,
                         by: by,
                         content: content,
-                        name: name
+                        name: name,
+                        rating: val
                     }
                 ])
 
             console.log({ id, name: by, content })
+            this.val = 0;
+            this.comment_con = ""
 
             this.updateReviews(this.$route.params.id);
 
@@ -340,7 +343,7 @@ export default {
 
 
         <!-- Nhap ten va review cua nguoi dung -->
-        <form v-if="user" action="" @submit.prevent="addReviews($route.params.id, user.id, comment_con, name)">
+        <form v-if="user" action="" @submit.prevent="addReviews($route.params.id, user.id, comment_con, name, val)">
             <div class="them-com">
                 <!-- <input :value="text" @input="onInput" placeholder="Type here"> -->
                 <h3><span>Thêm bình luận với tên: </span>{{ name }}</h3>

@@ -31,17 +31,17 @@
 
         <div class="scanner">
             <div class="card">
-                <h3 class="brand">{{ brand }}</h3>
+                <h3 class="brand">{{ so }}</h3>
 
                 <p class="number">{{ cardNumber }}</p>
                 <h3 class="name">{{ owner }}</h3>
             </div>
 
             <form action="" @submit.prevent="buy()">
-                <input type="text" v-model="cardNumber" placeholder="Card number">
-                <input type="text" v-model="owner" placeholder="Owner's name">
-                <input type="text" v-model="expiryDate" placeholder="Expiration">
-                <input type="text" v-model="cvv" placeholder="CVV">
+                <input id="cardNumber" type="text" v-model="cardNumber" placeholder="Card number">
+                <input id="owner" type="text" v-model="owner" placeholder="Owner's name">
+                <input id="expiryDate" type="text" v-model="expiryDate" placeholder="Expiration">
+                <input id="cvv" type="text" v-model="cvv" placeholder="CVV">
             </form>
 
 
@@ -95,6 +95,12 @@ paypal.Buttons({
         });
     }
 }).render('#paypal-button-container');
+
+var so = "348357"
+
+function yell() {
+    $options.methods.yell()
+}
 
 export default {
     name: 'test',
@@ -269,18 +275,12 @@ export default {
                             year: blinkCardResult.expiryDate.year,
                             month: blinkCardResult.expiryDate.month
                         }
-                        if (blinkCardResult != null) {
-                            this.cardNumber = blinkCardResult.cardNumber;
-                            this.owner = blinkCardResult.owner;
-                            this.cvv = blinkCardResult.cvv;
-                            this.expiryDate = blinkCardResult.expiryDate;
-                        }
-                        else {
-                            this.cardNumber = "4565456821355";
-                            this.owner = "TRANG MINH HUU PHUC";
-                            this.cvv = "422";
-                            this.expiryDate = 'NOW';
-                        }
+
+                        document.getElementById("cardNumber").value = blinkCardResult.cardNumber;
+                        document.getElementById("owner").value = blinkCardResult.owner;
+                        document.getElementById("expiryDate").value = blinkCardResult.year;
+                        document.getElementById("cvv").value = blinkCardResult.cvv;
+
                         alert
                             (
                                 `Hello, ${firstAndLastName}!\n Your payment card with card number ${cardNumber} will expire on ${dateOfExpiry.year}/${dateOfExpiry.month}.`
@@ -421,18 +421,35 @@ export default {
             main();
 
 
+        },
+        yell() {
+            console.log("hi")
+        },
+
+        test() {
+            var a = "546598656562626464"
+            console.log("test")
+
+            function test() {
+                console.log("why")
+                so = "39485758058"
+            }
+
+
+            test();
+
+            console.log(so, "whiwghiwhiughriuhirhuhgi")
         }
+
     },
     mounted() {
         this.match(this.$route.params.id);
         this.load();
-        console.log("thaihgihgi", this.cardNumber)
 
-        function test() {
-            console.log("why")
-            console.log(this.cardNumber);
-        }
-        test();
+
+        this.test();
+
+        // yell()
 
 
         this.scanner();
